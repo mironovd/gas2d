@@ -2,11 +2,11 @@ object Form1: TForm1
   Left = 189
   Height = 764
   Top = 154
-  Width = 1215
+  Width = 1249
   Anchors = [akLeft]
   Caption = 'Form1'
   ClientHeight = 764
-  ClientWidth = 1215
+  ClientWidth = 1249
   Color = 13421772
   OnCreate = FormCreate
   OnResize = FormResize
@@ -15,7 +15,7 @@ object Form1: TForm1
   object Label1: TLabel
     Left = 32
     Height = 17
-    Top = 690
+    Top = 680
     Width = 11
     Anchors = [akLeft, akBottom]
     Caption = 'N'
@@ -24,7 +24,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 31
     Height = 17
-    Top = 720
+    Top = 710
     Width = 12
     Anchors = [akLeft, akBottom]
     Caption = 'M'
@@ -33,7 +33,7 @@ object Form1: TForm1
   object NE: TSpinEdit
     Left = 56
     Height = 16
-    Top = 691
+    Top = 681
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
@@ -45,7 +45,7 @@ object Form1: TForm1
   object ME: TSpinEdit
     Left = 56
     Height = 16
-    Top = 721
+    Top = 711
     Width = 73
     Anchors = [akLeft, akBottom]
     MinValue = 2
@@ -58,7 +58,7 @@ object Form1: TForm1
     Left = -1
     Height = 672
     Top = 0
-    Width = 1216
+    Width = 1250
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
     OnClick = PanoClick
@@ -199,5 +199,42 @@ object Form1: TForm1
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
+  end
+  object BFwd: TButton
+    Left = 672
+    Height = 25
+    Top = 723
+    Width = 32
+    Anchors = [akLeft, akBottom]
+    Caption = '►'
+    OnClick = BFwdClick
+    TabOrder = 7
+  end
+  object BStop: TButton
+    Left = 712
+    Height = 25
+    Top = 723
+    Width = 32
+    Anchors = [akLeft, akBottom]
+    Caption = '▩'
+    OnClick = BStopClick
+    TabOrder = 8
+  end
+  object CFast: TCheckBox
+    Left = 56
+    Height = 18
+    Top = 733
+    Width = 46
+    Anchors = [akLeft, akBottom]
+    Caption = 'Fast'
+    OnChange = CFastChange
+    TabOrder = 9
+  end
+  object Timer: TTimer
+    Enabled = False
+    Interval = 125
+    OnTimer = TimerTimer
+    left = 400
+    top = 680
   end
 end

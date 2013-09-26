@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ComCtrls, Spin, GraphUtil;
+  StdCtrls, ComCtrls, Spin, GraphUtil, Buttons;
 
 type
 
@@ -14,6 +14,9 @@ type
   dir = array [1..2] of integer;
 
   TForm1 = class(TForm)
+    BFwd: TButton;
+    BStop: TButton;
+    CFast: TCheckBox;
     Label4: TLabel;
     LPressure: TLabel;
     Rand: TButton;
@@ -32,7 +35,11 @@ type
     Label2: TLabel;
     NE: TSpinEdit;
     ME: TSpinEdit;
+    Timer: TTimer;
 
+    procedure BFwdClick(Sender: TObject);
+    procedure BStopClick(Sender: TObject);
+    procedure CFastChange(Sender: TObject);
     procedure RandClick(Sender: TObject);
 
     procedure Step2Click(Sender: TObject);
@@ -50,6 +57,7 @@ type
     procedure reprob();
     procedure Step1Click(Sender: TObject);
     procedure Step3Click(Sender: TObject);
+    procedure TimerTimer(Sender: TObject);
   private
     { private declarations }
 
@@ -65,6 +73,7 @@ var
   adirs: array [0..101] of array [0..101] of dir;
   probs: array [-1..1] of array [-1..1] of real;
   sumprobs:array [-1..1] of array [-1..1] of real;
+  state: integer;
 
 implementation
 
@@ -138,6 +147,17 @@ begin
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
 end;
 
+procedure TForm1.TimerTimer(Sender: TObject);
+begin
+    state:=state+1;
+  case state of
+       1: Step1Click(Form1);
+       2: Step2Click(Form1);
+       3: Step3Click(Form1);
+       else state:=0;
+  end;
+end;
+
 function TForm1.gendir() :dir;
 var r : real;
   i,j:integer;
@@ -197,7 +217,7 @@ var i,j,M,N,k,l,v,s:integer;
   count,countmov:integer;
   r: real;
 begin
-//  Memo1.Text:='';
+//Memo1.Text:='';
   M:=ME.Value; N:=NE.Value;
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   count:=0; countmov:=0;
@@ -342,6 +362,23 @@ begin
        end;
      end;
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+end;
+
+procedure TForm1.BFwdClick(Sender: TObject);
+begin
+   state:=0;
+   Timer.Enabled:=true;
+end;
+
+procedure TForm1.BStopClick(Sender: TObject);
+begin
+  state:=0;
+  Timer.Enabled:=false;
+end;
+
+procedure TForm1.CFastChange(Sender: TObject);
+begin
+  if CFast.State=cbChecked then Timer.Interval:=8 else Timer.Interval:=125;
 end;
 
 
