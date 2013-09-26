@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 2340
+  Left = 189
   Height = 764
-  Top = 314
+  Top = 154
   Width = 1215
   Anchors = [akLeft]
   Caption = 'Form1'
@@ -11,9 +11,9 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnResize = FormResize
   UseDockManager = True
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.12.0'
   object Label1: TLabel
-    Left = 27
+    Left = 32
     Height = 17
     Top = 690
     Width = 11
@@ -22,16 +22,16 @@ object Form1: TForm1
     ParentColor = False
   end
   object Label2: TLabel
-    Left = 28
+    Left = 31
     Height = 17
-    Top = 718
+    Top = 720
     Width = 12
     Anchors = [akLeft, akBottom]
     Caption = 'M'
     ParentColor = False
   end
   object NE: TSpinEdit
-    Left = 72
+    Left = 56
     Height = 16
     Top = 691
     Width = 73
@@ -43,10 +43,10 @@ object Form1: TForm1
     Value = 40
   end
   object ME: TSpinEdit
-    Left = 80
+    Left = 56
     Height = 16
     Top = 721
-    Width = 60
+    Width = 73
     Anchors = [akLeft, akBottom]
     MinValue = 2
     OnChange = MEChange
@@ -56,7 +56,7 @@ object Form1: TForm1
   end
   object Pano: TImage
     Left = -1
-    Height = 631
+    Height = 672
     Top = 0
     Width = 1216
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -68,9 +68,9 @@ object Form1: TForm1
   end
   object Step1: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 472
+    Left = 448
     Height = 30
-    Top = 653
+    Top = 680
     Width = 95
     Anchors = [akLeft, akBottom]
     Caption = 'Step1'
@@ -79,9 +79,9 @@ object Form1: TForm1
   end
   object Step2: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 573
+    Left = 549
     Height = 30
-    Top = 653
+    Top = 680
     Width = 95
     Anchors = [akLeft, akBottom]
     Caption = 'Step2'
@@ -90,9 +90,9 @@ object Form1: TForm1
   end
   object Step3: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 674
+    Left = 650
     Height = 30
-    Top = 653
+    Top = 680
     Width = 95
     Anchors = [akLeft, akBottom]
     Caption = 'Step3'
@@ -101,9 +101,9 @@ object Form1: TForm1
   end
   object Label3: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 272
+    Left = 160
     Height = 17
-    Top = 656
+    Top = 680
     Width = 48
     Anchors = [akLeft, akBottom]
     Caption = 'Density'
@@ -111,18 +111,19 @@ object Form1: TForm1
   end
   object LDensity: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 376
-    Height = 1
-    Top = 653
-    Width = 1
+    Left = 265
+    Height = 17
+    Top = 680
+    Width = 26
     Anchors = [akLeft, akBottom]
+    Caption = 'N/A'
     ParentColor = False
   end
   object Label5: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 272
+    Left = 160
     Height = 17
-    Top = 678
+    Top = 699
     Width = 44
     Anchors = [akLeft, akBottom]
     Caption = 'Energy'
@@ -130,18 +131,19 @@ object Form1: TForm1
   end
   object LEnergy: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 376
-    Height = 1
-    Top = 675
-    Width = 1
+    Left = 265
+    Height = 17
+    Top = 699
+    Width = 26
     Anchors = [akLeft, akBottom]
+    Caption = 'N/A'
     ParentColor = False
   end
   object Label7: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 272
+    Left = 160
     Height = 17
-    Top = 700
+    Top = 718
     Width = 82
     Anchors = [akLeft, akBottom]
     Caption = 'Temperature'
@@ -149,18 +151,19 @@ object Form1: TForm1
   end
   object LTemp: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 376
-    Height = 1
-    Top = 697
-    Width = 1
+    Left = 265
+    Height = 17
+    Top = 718
+    Width = 26
     Anchors = [akLeft, akBottom]
+    Caption = 'N/A'
     ParentColor = False
   end
   object Rand: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 478
+    Left = 448
     Height = 28
-    Top = 717
+    Top = 723
     Width = 99
     Anchors = [akLeft, akBottom]
     Caption = 'Rand'
@@ -169,9 +172,9 @@ object Form1: TForm1
   end
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 598
+    Left = 568
     Height = 22
-    Top = 720
+    Top = 726
     Width = 97
     Anchors = [akLeft, akBottom]
     TabOrder = 6
@@ -179,9 +182,9 @@ object Form1: TForm1
   end
   object Label4: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 272
+    Left = 160
     Height = 17
-    Top = 719
+    Top = 739
     Width = 55
     Anchors = [akLeft, akBottom]
     Caption = 'Pressure'
@@ -189,21 +192,12 @@ object Form1: TForm1
   end
   object LPressure: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 376
-    Height = 1
-    Top = 718
-    Width = 1
+    Left = 265
+    Height = 17
+    Top = 739
+    Width = 26
     Anchors = [akLeft, akBottom]
+    Caption = 'N/A'
     ParentColor = False
-  end
-  object Memo1: TMemo
-    Left = 783
-    Height = 96
-    Top = 652
-    Width = 396
-    Lines.Strings = (
-      'Memo1'
-    )
-    TabOrder = 7
   end
 end

@@ -16,7 +16,6 @@ type
   TForm1 = class(TForm)
     Label4: TLabel;
     LPressure: TLabel;
-    Memo1: TMemo;
     Rand: TButton;
     RR:TEdit;
     Label3: TLabel;
@@ -121,8 +120,9 @@ begin
     for j:=1 to N do begin
       if points[i,j] then begin
 
-
        d:=adirs[i,j];
+
+        if  ((adirs[i+d[1],j+d[2],1]=-d[1]) and (adirs[i+d[1],j+d[2],2]=-d[2])) then continue;
 
        points[i,j]:=false;
        points[i+d[1],j+d[2]]:=true;
@@ -197,7 +197,7 @@ var i,j,M,N,k,l,v,s:integer;
   count,countmov:integer;
   r: real;
 begin
-  Memo1.Text:='';
+//  Memo1.Text:='';
   M:=ME.Value; N:=NE.Value;
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   count:=0; countmov:=0;
@@ -285,7 +285,7 @@ begin
 
        if v>1 then begin
        s:=trunc(random()*v)+1;
-       Memo1.Text:=Memo1.Text+inttostr(s)+'of'+inttostr(v)+'!';
+//       Memo1.Text:=Memo1.Text+inttostr(s)+'of'+inttostr(v)+'!';
        for k:=1 to v do begin
  //        if not k=s then begin
           adirs[i+d[1]+vv[k,1],j+d[2]+vv[k,2],1]:=0;
