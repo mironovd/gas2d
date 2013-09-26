@@ -1,0 +1,209 @@
+object Form1: TForm1
+  Left = 2340
+  Height = 764
+  Top = 314
+  Width = 1215
+  Anchors = [akLeft]
+  Caption = 'Form1'
+  ClientHeight = 764
+  ClientWidth = 1215
+  Color = 13421772
+  OnCreate = FormCreate
+  OnResize = FormResize
+  UseDockManager = True
+  LCLVersion = '1.0.10.0'
+  object Label1: TLabel
+    Left = 27
+    Height = 17
+    Top = 690
+    Width = 11
+    Anchors = [akLeft, akBottom]
+    Caption = 'N'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 28
+    Height = 17
+    Top = 718
+    Width = 12
+    Anchors = [akLeft, akBottom]
+    Caption = 'M'
+    ParentColor = False
+  end
+  object NE: TSpinEdit
+    Left = 72
+    Height = 16
+    Top = 691
+    Width = 73
+    Anchors = [akLeft, akBottom]
+    AutoSelect = False
+    MinValue = 2
+    OnChange = NEChange
+    TabOrder = 0
+    Value = 40
+  end
+  object ME: TSpinEdit
+    Left = 80
+    Height = 16
+    Top = 721
+    Width = 60
+    Anchors = [akLeft, akBottom]
+    MinValue = 2
+    OnChange = MEChange
+    ParentFont = False
+    TabOrder = 1
+    Value = 30
+  end
+  object Pano: TImage
+    Left = -1
+    Height = 631
+    Top = 0
+    Width = 1216
+    Anchors = [akTop, akLeft, akRight, akBottom]
+    AutoSize = True
+    OnClick = PanoClick
+    OnMouseDown = PanoMouseDown
+    OnResize = PanoResize
+    ParentShowHint = False
+  end
+  object Step1: TButton
+    AnchorSideBottom.Side = asrBottom
+    Left = 472
+    Height = 30
+    Top = 653
+    Width = 95
+    Anchors = [akLeft, akBottom]
+    Caption = 'Step1'
+    OnClick = Step1Click
+    TabOrder = 2
+  end
+  object Step2: TButton
+    AnchorSideBottom.Side = asrBottom
+    Left = 573
+    Height = 30
+    Top = 653
+    Width = 95
+    Anchors = [akLeft, akBottom]
+    Caption = 'Step2'
+    OnClick = Step2Click
+    TabOrder = 3
+  end
+  object Step3: TButton
+    AnchorSideBottom.Side = asrBottom
+    Left = 674
+    Height = 30
+    Top = 653
+    Width = 95
+    Anchors = [akLeft, akBottom]
+    Caption = 'Step3'
+    OnClick = Step3Click
+    TabOrder = 4
+  end
+  object Label3: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 272
+    Height = 17
+    Top = 656
+    Width = 48
+    Anchors = [akLeft, akBottom]
+    Caption = 'Density'
+    ParentColor = False
+  end
+  object LDensity: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 376
+    Height = 1
+    Top = 653
+    Width = 1
+    Anchors = [akLeft, akBottom]
+    ParentColor = False
+  end
+  object Label5: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 272
+    Height = 17
+    Top = 678
+    Width = 44
+    Anchors = [akLeft, akBottom]
+    Caption = 'Energy'
+    ParentColor = False
+  end
+  object LEnergy: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 376
+    Height = 1
+    Top = 675
+    Width = 1
+    Anchors = [akLeft, akBottom]
+    ParentColor = False
+  end
+  object Label7: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 272
+    Height = 17
+    Top = 700
+    Width = 82
+    Anchors = [akLeft, akBottom]
+    Caption = 'Temperature'
+    ParentColor = False
+  end
+  object LTemp: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 376
+    Height = 1
+    Top = 697
+    Width = 1
+    Anchors = [akLeft, akBottom]
+    ParentColor = False
+  end
+  object Rand: TButton
+    AnchorSideBottom.Side = asrBottom
+    Left = 478
+    Height = 28
+    Top = 717
+    Width = 99
+    Anchors = [akLeft, akBottom]
+    Caption = 'Rand'
+    OnClick = RandClick
+    TabOrder = 5
+  end
+  object RR: TEdit
+    AnchorSideBottom.Side = asrBottom
+    Left = 598
+    Height = 22
+    Top = 720
+    Width = 97
+    Anchors = [akLeft, akBottom]
+    TabOrder = 6
+    Text = '0.5'
+  end
+  object Label4: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 272
+    Height = 17
+    Top = 719
+    Width = 55
+    Anchors = [akLeft, akBottom]
+    Caption = 'Pressure'
+    ParentColor = False
+  end
+  object LPressure: TLabel
+    AnchorSideBottom.Side = asrBottom
+    Left = 376
+    Height = 1
+    Top = 718
+    Width = 1
+    Anchors = [akLeft, akBottom]
+    ParentColor = False
+  end
+  object Memo1: TMemo
+    Left = 783
+    Height = 96
+    Top = 652
+    Width = 396
+    Lines.Strings = (
+      'Memo1'
+    )
+    TabOrder = 7
+  end
+end
