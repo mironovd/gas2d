@@ -16,7 +16,14 @@ type
   TForm1 = class(TForm)
     BFwd: TButton;
     BStop: TButton;
+    Clear: TButton;
+    Ckecker: TButton;
     CFast: TCheckBox;
+    CenterPr: TEdit;
+    UpPr: TFloatSpinEdit;
+    LeftPr: TFloatSpinEdit;
+    RightPr: TFloatSpinEdit;
+    DownPr: TFloatSpinEdit;
     Label4: TLabel;
     LPressure: TLabel;
     Rand: TButton;
@@ -40,7 +47,13 @@ type
     procedure BFwdClick(Sender: TObject);
     procedure BStopClick(Sender: TObject);
     procedure CFastChange(Sender: TObject);
+    procedure CkeckerClick(Sender: TObject);
+    procedure ClearClick(Sender: TObject);
+    procedure DownPrChange(Sender: TObject);
+    procedure CenterPrChange(Sender: TObject);
+    procedure LeftPrChange(Sender: TObject);
     procedure RandClick(Sender: TObject);
+    procedure RightPrChange(Sender: TObject);
 
     procedure Step2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -58,6 +71,7 @@ type
     procedure Step1Click(Sender: TObject);
     procedure Step3Click(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure UpPrChange(Sender: TObject);
   private
     { private declarations }
 
@@ -85,6 +99,25 @@ procedure TForm1.reprob();
 var i,j:integer;
   s:real;
 begin
+    probs[-1,0]:=LeftPr.Value;
+    probs[1,0]:=RightPr.Value;
+    probs[0,1]:=DownPr.Value;
+    probs[0,-1]:=UpPr.Value;
+
+    s:=-probs[0,0];
+     for i:=-1 to 1 do begin
+         for j:=-1 to 1 do begin
+           s+=probs[i,j];
+         end;
+     end;
+    probs[0,0]:=1-s;
+    CenterPr.Text:=floattostr(round(probs[0,0]*100)/100);
+
+    LeftPr.MaxValue:=LeftPr.Value+probs[0,0];
+    UpPr.MaxValue:=UpPr.Value+probs[0,0];
+    DownPr.MaxValue:=DownPr.Value+probs[0,0];
+    RightPr.MaxValue:=RightPr.Value+probs[0,0];
+
     s:=0;
      for i:=-1 to 1 do begin
          for j:=-1 to 1 do begin
@@ -158,6 +191,11 @@ begin
   end;
 end;
 
+procedure TForm1.UpPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
 function TForm1.gendir() :dir;
 var r : real;
   i,j:integer;
@@ -203,8 +241,8 @@ begin
            end;
         end;
         probs[-1,-1]:=0; probs[-1,1]:=0; probs[1,-1]:=0; probs[1,1]:=0;
-        probs[1,0]:=0.2; probs[0,1]:=0.2; probs[-1,0]:=0.2; probs[0,-1]:=0.2;
-        probs[0,0]:=0.2;
+//        probs[1,0]:=0.2; probs[0,1]:=0.2; probs[-1,0]:=0.2; probs[0,-1]:=0.2;
+//        probs[0,0]:=0.2;
         reprob;
 
 end;
@@ -364,6 +402,11 @@ begin
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
 end;
 
+procedure TForm1.RightPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
 procedure TForm1.BFwdClick(Sender: TObject);
 begin
    state:=0;
@@ -379,6 +422,47 @@ end;
 procedure TForm1.CFastChange(Sender: TObject);
 begin
   if CFast.State=cbChecked then Timer.Interval:=8 else Timer.Interval:=125;
+end;
+
+procedure TForm1.CkeckerClick(Sender: TObject);
+var t,v:boolean;
+  i,j:integer;
+begin
+    t:=true; v:=true;
+    for i:=1 to NE.Value do begin
+      t:=v; v:=not v;
+       for j:=1 to ME.Value do begin
+           points[j,i]:=t;
+           t:=not t;
+       end;
+    end;
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+end;
+
+procedure TForm1.ClearClick(Sender: TObject);
+var i,j:integer;
+begin
+    for i:=0 to 101 do begin
+       for j:=0 to 101 do begin
+           points[i,j]:=false;
+       end;
+    end;
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+end;
+
+procedure TForm1.DownPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
+procedure TForm1.CenterPrChange(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.LeftPrChange(Sender: TObject);
+begin
+  reprob();
 end;
 
 
@@ -437,11 +521,16 @@ begin
        Y:=trunc(NE.Value*Y/Pano.Height)+1;
        points[X,Y]:=not points[X,Y];
        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+
 end;
 
 procedure TForm1.PanoResize(Sender: TObject);
 begin
-        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+//     Pano.Canvas.Height:=Pano.Height;
+//     Pano.Canvas.Width:=Pano.Width;
+
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+
 end;
 
 
