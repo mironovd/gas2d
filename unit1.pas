@@ -130,7 +130,8 @@ end;
 
 procedure TForm1.Step1Click(Sender: TObject);
 var i,j,M,N:integer;
-  p,q:TPoint;
+  p,q,r,s:TPoint;
+  pz:array [1..3] of TPoint;
 begin
   M:=ME.Value; N:=NE.Value;
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
@@ -143,7 +144,15 @@ begin
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       pz[1]:=q;pz[2]:=r;pz[3]:=s;
+       Pano.Canvas.Brush.Color:=$FF0000;
+       Pano.Canvas.Polygon(pz);
+//       Pano.Canvas.Pen.Color:=$FF0000;
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
       end;
     end;
   end;
@@ -249,7 +258,8 @@ end;
 
 procedure TForm1.Step2Click(Sender: TObject);
 var i,j,M,N,k,l,v,s:integer;
-  p,q:TPoint;
+  p,q,t,u:TPoint;
+  pz:array [1..3] of TPoint;
   d: dir;
   vv: array [1..9] of dir;
   count,countmov:integer;
@@ -274,33 +284,41 @@ begin
   for i:=1 to M do begin
     for j:=1 to N do begin
       if points[i,j] then begin
-       Pano.Canvas.Pen.Color:=$FF0000;
+       Pano.Canvas.Brush.Color:=$FF0000;
        p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       pz[1]:=q;pz[2]:=t;pz[3]:=u;
+       Pano.Canvas.Polygon(pz);
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
        count:=count+1;
        d:=dirs[i,j];
 
 
         if ((adirs[i,j,1]=0) and (adirs[i,j,2]=0)) and xpoints[i,j] then begin
 
-           Pano.Canvas.Pen.Color:=$00FFFF;
-          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+           Pano.Canvas.Brush.Color:=$FF0000;
+//          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+            Pano.Canvas.Polygon(pz);
           continue;
 
          end
         else if not xpoints[i,j] then begin
           if not(( adirs[i,j,1]=0) and ( adirs[i,j,2]=0)) then begin
 
-                 Pano.Canvas.Pen.Color:=$0000FF;
+                 Pano.Canvas.Brush.Color:=$0000FF;
                  countmov:=countmov+1;
           end
           else begin
-             Pano.Canvas.Pen.Color:=$00FFFF
+             Pano.Canvas.Brush.Color:=$FF0000;
           end;
-          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+//          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+            Pano.Canvas.Polygon(pz);
           continue;
         end
 
@@ -361,15 +379,17 @@ begin
        end;
 
        if (adirs[i,j,1]=0) and (adirs[i,j,2]=0) then begin
-          Pano.Canvas.Pen.Color:=$00FF00;
-                 GraphUtil.DrawArrow(Pano.Canvas,p,q);
+          Pano.Canvas.Brush.Color:=$FF0000;
+//                 GraphUtil.DrawArrow(Pano.Canvas,p,q);
+          Pano.Canvas.Polygon(pz);
           continue;
 
        end;
        adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
        countmov:=countmov+1;
-       Pano.Canvas.Pen.Color:=$0000FF;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       Pano.Canvas.Brush.Color:=$0000FF;
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       Pano.Canvas.Polygon(pz);
 
         end;
       end;
