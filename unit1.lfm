@@ -1,21 +1,21 @@
 object Form1: TForm1
   Left = 189
-  Height = 764
+  Height = 904
   Top = 154
-  Width = 1249
+  Width = 1687
   Anchors = [akLeft]
   Caption = 'Form1'
-  ClientHeight = 764
-  ClientWidth = 1249
+  ClientHeight = 904
+  ClientWidth = 1687
   Color = 13421772
   OnCreate = FormCreate
   OnResize = FormResize
   UseDockManager = True
-  LCLVersion = '1.0.12.0'
+  LCLVersion = '1.0.10.0'
   object Label1: TLabel
     Left = 32
     Height = 17
-    Top = 680
+    Top = 820
     Width = 11
     Anchors = [akLeft, akBottom]
     Caption = 'N'
@@ -24,7 +24,7 @@ object Form1: TForm1
   object Label2: TLabel
     Left = 31
     Height = 17
-    Top = 710
+    Top = 850
     Width = 12
     Anchors = [akLeft, akBottom]
     Caption = 'M'
@@ -33,7 +33,7 @@ object Form1: TForm1
   object NE: TSpinEdit
     Left = 56
     Height = 16
-    Top = 681
+    Top = 821
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
@@ -45,7 +45,7 @@ object Form1: TForm1
   object ME: TSpinEdit
     Left = 56
     Height = 16
-    Top = 711
+    Top = 851
     Width = 73
     Anchors = [akLeft, akBottom]
     MinValue = 2
@@ -56,22 +56,21 @@ object Form1: TForm1
   end
   object Pano: TImage
     Left = -1
-    Height = 672
+    Height = 812
     Top = 0
-    Width = 1250
+    Width = 1688
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
     OnClick = PanoClick
     OnMouseDown = PanoMouseDown
     OnResize = PanoResize
-    ParentShowHint = False
   end
   object Step1: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 448
+    Left = 408
     Height = 30
-    Top = 680
-    Width = 95
+    Top = 820
+    Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step1'
     OnClick = Step1Click
@@ -79,10 +78,10 @@ object Form1: TForm1
   end
   object Step2: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 549
+    Left = 457
     Height = 30
-    Top = 680
-    Width = 95
+    Top = 820
+    Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step2'
     OnClick = Step2Click
@@ -90,10 +89,10 @@ object Form1: TForm1
   end
   object Step3: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 650
+    Left = 506
     Height = 30
-    Top = 680
-    Width = 95
+    Top = 820
+    Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step3'
     OnClick = Step3Click
@@ -103,7 +102,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 160
     Height = 17
-    Top = 680
+    Top = 820
     Width = 48
     Anchors = [akLeft, akBottom]
     Caption = 'Density'
@@ -113,7 +112,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 265
     Height = 17
-    Top = 680
+    Top = 820
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -123,7 +122,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 160
     Height = 17
-    Top = 699
+    Top = 839
     Width = 44
     Anchors = [akLeft, akBottom]
     Caption = 'Energy'
@@ -133,7 +132,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 265
     Height = 17
-    Top = 699
+    Top = 839
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -143,7 +142,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 160
     Height = 17
-    Top = 718
+    Top = 858
     Width = 82
     Anchors = [akLeft, akBottom]
     Caption = 'Temperature'
@@ -153,7 +152,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 265
     Height = 17
-    Top = 718
+    Top = 858
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -161,21 +160,21 @@ object Form1: TForm1
   end
   object Rand: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 448
+    Left = 640
     Height = 28
-    Top = 723
-    Width = 99
+    Top = 821
+    Width = 83
     Anchors = [akLeft, akBottom]
-    Caption = 'Rand'
+    Caption = 'Random'
     OnClick = RandClick
     TabOrder = 5
   end
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 568
+    Left = 640
     Height = 22
-    Top = 726
-    Width = 97
+    Top = 856
+    Width = 81
     Anchors = [akLeft, akBottom]
     TabOrder = 6
     Text = '0.5'
@@ -184,7 +183,7 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 160
     Height = 17
-    Top = 739
+    Top = 879
     Width = 55
     Anchors = [akLeft, akBottom]
     Caption = 'Pressure'
@@ -194,16 +193,16 @@ object Form1: TForm1
     AnchorSideBottom.Side = asrBottom
     Left = 265
     Height = 17
-    Top = 739
+    Top = 879
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
   end
   object BFwd: TButton
-    Left = 672
-    Height = 25
-    Top = 723
+    Left = 555
+    Height = 29
+    Top = 820
     Width = 32
     Anchors = [akLeft, akBottom]
     Caption = '►'
@@ -211,9 +210,9 @@ object Form1: TForm1
     TabOrder = 7
   end
   object BStop: TButton
-    Left = 712
-    Height = 25
-    Top = 723
+    Left = 591
+    Height = 30
+    Top = 820
     Width = 32
     Anchors = [akLeft, akBottom]
     Caption = '▩'
@@ -223,12 +222,87 @@ object Form1: TForm1
   object CFast: TCheckBox
     Left = 56
     Height = 18
-    Top = 733
+    Top = 873
     Width = 46
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
     OnChange = CFastChange
     TabOrder = 9
+  end
+  object Clear: TButton
+    Left = 408
+    Height = 26
+    Top = 858
+    Width = 94
+    Caption = 'Clear'
+    OnClick = ClearClick
+    TabOrder = 10
+  end
+  object Ckecker: TButton
+    Left = 506
+    Height = 28
+    Top = 856
+    Width = 117
+    Caption = 'CkeckerBoard'
+    OnClick = CkeckerClick
+    TabOrder = 11
+  end
+  object UpPr: TFloatSpinEdit
+    Left = 808
+    Height = 16
+    Top = 821
+    Width = 66
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = UpPrChange
+    TabOrder = 12
+    Value = 0.2
+  end
+  object LeftPr: TFloatSpinEdit
+    Left = 736
+    Height = 16
+    Top = 845
+    Width = 66
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = LeftPrChange
+    TabOrder = 13
+    Value = 0.2
+  end
+  object RightPr: TFloatSpinEdit
+    Left = 880
+    Height = 16
+    Top = 845
+    Width = 66
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = RightPrChange
+    TabOrder = 14
+    Value = 0.2
+  end
+  object DownPr: TFloatSpinEdit
+    Left = 808
+    Height = 16
+    Top = 869
+    Width = 66
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = DownPrChange
+    TabOrder = 15
+    Value = 0.2
+  end
+  object CenterPr: TEdit
+    Left = 804
+    Height = 22
+    Top = 842
+    Width = 66
+    OnChange = CenterPrChange
+    TabOrder = 16
+    Text = '0.2'
   end
   object Timer: TTimer
     Enabled = False

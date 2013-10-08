@@ -16,7 +16,14 @@ type
   TForm1 = class(TForm)
     BFwd: TButton;
     BStop: TButton;
+    Clear: TButton;
+    Ckecker: TButton;
     CFast: TCheckBox;
+    CenterPr: TEdit;
+    UpPr: TFloatSpinEdit;
+    LeftPr: TFloatSpinEdit;
+    RightPr: TFloatSpinEdit;
+    DownPr: TFloatSpinEdit;
     Label4: TLabel;
     LPressure: TLabel;
     Rand: TButton;
@@ -40,7 +47,13 @@ type
     procedure BFwdClick(Sender: TObject);
     procedure BStopClick(Sender: TObject);
     procedure CFastChange(Sender: TObject);
+    procedure CkeckerClick(Sender: TObject);
+    procedure ClearClick(Sender: TObject);
+    procedure DownPrChange(Sender: TObject);
+    procedure CenterPrChange(Sender: TObject);
+    procedure LeftPrChange(Sender: TObject);
     procedure RandClick(Sender: TObject);
+    procedure RightPrChange(Sender: TObject);
 
     procedure Step2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -58,6 +71,7 @@ type
     procedure Step1Click(Sender: TObject);
     procedure Step3Click(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
+    procedure UpPrChange(Sender: TObject);
   private
     { private declarations }
 
@@ -85,6 +99,25 @@ procedure TForm1.reprob();
 var i,j:integer;
   s:real;
 begin
+    probs[-1,0]:=LeftPr.Value;
+    probs[1,0]:=RightPr.Value;
+    probs[0,1]:=DownPr.Value;
+    probs[0,-1]:=UpPr.Value;
+
+    s:=-probs[0,0];
+     for i:=-1 to 1 do begin
+         for j:=-1 to 1 do begin
+           s+=probs[i,j];
+         end;
+     end;
+    probs[0,0]:=1-s;
+    CenterPr.Text:=floattostr(round(probs[0,0]*100)/100);
+
+    LeftPr.MaxValue:=LeftPr.Value+probs[0,0];
+    UpPr.MaxValue:=UpPr.Value+probs[0,0];
+    DownPr.MaxValue:=DownPr.Value+probs[0,0];
+    RightPr.MaxValue:=RightPr.Value+probs[0,0];
+
     s:=0;
      for i:=-1 to 1 do begin
          for j:=-1 to 1 do begin
@@ -97,7 +130,8 @@ end;
 
 procedure TForm1.Step1Click(Sender: TObject);
 var i,j,M,N:integer;
-  p,q:TPoint;
+  p,q,r,s:TPoint;
+  pz:array [1..3] of TPoint;
 begin
   M:=ME.Value; N:=NE.Value;
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
@@ -110,7 +144,15 @@ begin
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       pz[1]:=q;pz[2]:=r;pz[3]:=s;
+       Pano.Canvas.Brush.Color:=$FF0000;
+       Pano.Canvas.Polygon(pz);
+//       Pano.Canvas.Pen.Color:=$FF0000;
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
       end;
     end;
   end;
@@ -158,6 +200,11 @@ begin
   end;
 end;
 
+procedure TForm1.UpPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
 function TForm1.gendir() :dir;
 var r : real;
   i,j:integer;
@@ -203,15 +250,16 @@ begin
            end;
         end;
         probs[-1,-1]:=0; probs[-1,1]:=0; probs[1,-1]:=0; probs[1,1]:=0;
-        probs[1,0]:=0.2; probs[0,1]:=0.2; probs[-1,0]:=0.2; probs[0,-1]:=0.2;
-        probs[0,0]:=0.2;
+//        probs[1,0]:=0.2; probs[0,1]:=0.2; probs[-1,0]:=0.2; probs[0,-1]:=0.2;
+//        probs[0,0]:=0.2;
         reprob;
 
 end;
 
 procedure TForm1.Step2Click(Sender: TObject);
 var i,j,M,N,k,l,v,s:integer;
-  p,q:TPoint;
+  p,q,t,u:TPoint;
+  pz:array [1..3] of TPoint;
   d: dir;
   vv: array [1..9] of dir;
   count,countmov:integer;
@@ -236,33 +284,41 @@ begin
   for i:=1 to M do begin
     for j:=1 to N do begin
       if points[i,j] then begin
-       Pano.Canvas.Pen.Color:=$FF0000;
+       Pano.Canvas.Brush.Color:=$FF0000;
        p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       pz[1]:=q;pz[2]:=t;pz[3]:=u;
+       Pano.Canvas.Polygon(pz);
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
        count:=count+1;
        d:=dirs[i,j];
 
 
         if ((adirs[i,j,1]=0) and (adirs[i,j,2]=0)) and xpoints[i,j] then begin
 
-           Pano.Canvas.Pen.Color:=$00FFFF;
-          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+           Pano.Canvas.Brush.Color:=$FF0000;
+//          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+            Pano.Canvas.Polygon(pz);
           continue;
 
          end
         else if not xpoints[i,j] then begin
           if not(( adirs[i,j,1]=0) and ( adirs[i,j,2]=0)) then begin
 
-                 Pano.Canvas.Pen.Color:=$0000FF;
+                 Pano.Canvas.Brush.Color:=$0000FF;
                  countmov:=countmov+1;
           end
           else begin
-             Pano.Canvas.Pen.Color:=$00FFFF
+             Pano.Canvas.Brush.Color:=$FF0000;
           end;
-          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+//          GraphUtil.DrawArrow(Pano.Canvas,p,q);
+            Pano.Canvas.Polygon(pz);
           continue;
         end
 
@@ -323,15 +379,17 @@ begin
        end;
 
        if (adirs[i,j,1]=0) and (adirs[i,j,2]=0) then begin
-          Pano.Canvas.Pen.Color:=$00FF00;
-                 GraphUtil.DrawArrow(Pano.Canvas,p,q);
+          Pano.Canvas.Brush.Color:=$FF0000;
+//                 GraphUtil.DrawArrow(Pano.Canvas,p,q);
+          Pano.Canvas.Polygon(pz);
           continue;
 
        end;
        adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
        countmov:=countmov+1;
-       Pano.Canvas.Pen.Color:=$0000FF;
-       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       Pano.Canvas.Brush.Color:=$0000FF;
+//       GraphUtil.DrawArrow(Pano.Canvas,p,q);
+       Pano.Canvas.Polygon(pz);
 
         end;
       end;
@@ -364,6 +422,11 @@ begin
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
 end;
 
+procedure TForm1.RightPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
 procedure TForm1.BFwdClick(Sender: TObject);
 begin
    state:=0;
@@ -379,6 +442,47 @@ end;
 procedure TForm1.CFastChange(Sender: TObject);
 begin
   if CFast.State=cbChecked then Timer.Interval:=8 else Timer.Interval:=125;
+end;
+
+procedure TForm1.CkeckerClick(Sender: TObject);
+var t,v:boolean;
+  i,j:integer;
+begin
+    t:=true; v:=true;
+    for i:=1 to NE.Value do begin
+      t:=v; v:=not v;
+       for j:=1 to ME.Value do begin
+           points[j,i]:=t;
+           t:=not t;
+       end;
+    end;
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+end;
+
+procedure TForm1.ClearClick(Sender: TObject);
+var i,j:integer;
+begin
+    for i:=0 to 101 do begin
+       for j:=0 to 101 do begin
+           points[i,j]:=false;
+       end;
+    end;
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+end;
+
+procedure TForm1.DownPrChange(Sender: TObject);
+begin
+  reprob();
+end;
+
+procedure TForm1.CenterPrChange(Sender: TObject);
+begin
+
+end;
+
+procedure TForm1.LeftPrChange(Sender: TObject);
+begin
+  reprob();
 end;
 
 
@@ -437,11 +541,16 @@ begin
        Y:=trunc(NE.Value*Y/Pano.Height)+1;
        points[X,Y]:=not points[X,Y];
        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+
 end;
 
 procedure TForm1.PanoResize(Sender: TObject);
 begin
-        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+//     Pano.Canvas.Height:=Pano.Height;
+//     Pano.Canvas.Width:=Pano.Width;
+
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+
 end;
 
 
