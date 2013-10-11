@@ -55,7 +55,7 @@ object Form1: TForm1
     Value = 30
   end
   object Pano: TImage
-    Left = -1
+    Left = 0
     Height = 665
     Top = 0
     Width = 1242
@@ -316,14 +316,17 @@ object Form1: TForm1
     Height = 17
     Top = 674
     Width = 83
+    Anchors = [akLeft, akBottom]
     Caption = 'Step Number'
     ParentColor = False
   end
   object StepCount: TLabel
     Left = 448
-    Height = 1
+    Height = 17
     Top = 674
-    Width = 1
+    Width = 9
+    Anchors = [akLeft, akBottom]
+    Caption = '0'
     ParentColor = False
   end
   object Timer: TTimer
