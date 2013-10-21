@@ -412,10 +412,10 @@ begin
      end;
   end;
   Pano.Canvas.Pen.Color:=$000000;
-  LDensity.Caption:=floattostr(count/(N*M));
+  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
   LEnergy.Caption:=inttostr(countmov);
-  LTemp.Caption:=floattostr(countmov/count);
-  LPressure.Caption:=floattostr(countmov/(N*M));
+  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
+  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
 end;
 
 procedure TForm1.RandClick(Sender: TObject);
@@ -430,6 +430,11 @@ begin
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
      SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
+
 end;
 
 procedure TForm1.RightPrChange(Sender: TObject);
@@ -469,6 +474,11 @@ begin
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
+
 end;
 
 procedure TForm1.ClearClick(Sender: TObject);
@@ -482,6 +492,10 @@ begin
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
 end;
 
 procedure TForm1.DownPrChange(Sender: TObject);

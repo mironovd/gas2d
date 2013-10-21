@@ -55,6 +55,7 @@ object Form1: TForm1
     Value = 30
   end
   object Pano: TImage
+    Cursor = crArrow
     Left = 0
     Height = 665
     Top = 0
