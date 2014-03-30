@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 189
+  Left = 181
   Height = 904
-  Top = 154
+  Top = 142
   Width = 1687
   Anchors = [akLeft]
   Caption = 'Form1'
@@ -210,7 +210,7 @@ object Form1: TForm1
     TabOrder = 7
   end
   object BStop: TButton
-    Left = 591
+    Left = 593
     Height = 30
     Top = 820
     Width = 32
@@ -231,18 +231,18 @@ object Form1: TForm1
   end
   object Clear: TButton
     Left = 408
-    Height = 26
-    Top = 858
-    Width = 94
+    Height = 28
+    Top = 856
+    Width = 45
     Caption = 'Clear'
     OnClick = ClearClick
     TabOrder = 10
   end
   object Ckecker: TButton
-    Left = 506
+    Left = 457
     Height = 28
     Top = 856
-    Width = 117
+    Width = 94
     Caption = 'CkeckerBoard'
     OnClick = CkeckerClick
     TabOrder = 11
@@ -303,6 +303,15 @@ object Form1: TForm1
     OnChange = CenterPrChange
     TabOrder = 16
     Text = '0.2'
+  end
+  object BSkip100: TButton
+    Left = 555
+    Height = 28
+    Top = 856
+    Width = 70
+    Caption = 'Skip100'
+    OnClick = BSkip100Click
+    TabOrder = 17
   end
   object Timer: TTimer
     Enabled = False

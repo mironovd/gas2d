@@ -16,6 +16,7 @@ type
   TForm1 = class(TForm)
     BFwd: TButton;
     BStop: TButton;
+    BSkip100: TButton;
     Clear: TButton;
     Ckecker: TButton;
     CFast: TCheckBox;
@@ -45,6 +46,7 @@ type
     Timer: TTimer;
 
     procedure BFwdClick(Sender: TObject);
+    procedure BSkip100Click(Sender: TObject);
     procedure BStopClick(Sender: TObject);
     procedure CFastChange(Sender: TObject);
     procedure CkeckerClick(Sender: TObject);
@@ -431,6 +433,17 @@ procedure TForm1.BFwdClick(Sender: TObject);
 begin
    state:=0;
    Timer.Enabled:=true;
+end;
+
+procedure TForm1.BSkip100Click(Sender: TObject);
+var i,j:integer;
+begin
+     for i:=1 to 100 do begin
+              Step1Click(Form1);
+              Step2Click(Form1);
+              Step3Click(Form1);
+       end;
+
 end;
 
 procedure TForm1.BStopClick(Sender: TObject);
