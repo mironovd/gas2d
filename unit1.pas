@@ -21,6 +21,7 @@ type
     Ckecker: TButton;
     CFast: TCheckBox;
     CenterPr: TEdit;
+    ESkip: TEdit;
     Label6: TLabel;
     StepCount: TLabel;
     UpPr: TFloatSpinEdit;
@@ -93,7 +94,7 @@ var
   sumprobs:array [-1..1] of array [-1..1] of real;
   state: integer;
   SCount: integer;
-
+  draw : boolean;
 implementation
 
 {$R *.lfm}
@@ -139,8 +140,8 @@ var i,j,M,N:integer;
   pz:array [1..3] of TPoint;
 begin
   M:=ME.Value; N:=NE.Value;
-  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
-  Pano.Canvas.Pen.Color:=$FF0000;
+  if draw then Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  if draw then  Pano.Canvas.Pen.Color:=$FF0000;
   for i:=1 to M do begin
     for j:=1 to N do begin
       if points[i,j] then begin
@@ -154,14 +155,14 @@ begin
        s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
        s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
        pz[1]:=q;pz[2]:=r;pz[3]:=s;
-       Pano.Canvas.Brush.Color:=$FF0000;
-       Pano.Canvas.Polygon(pz);
+       if draw then Pano.Canvas.Brush.Color:=$FF0000;
+       if draw then Pano.Canvas.Polygon(pz);
 //       Pano.Canvas.Pen.Color:=$FF0000;
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
       end;
     end;
   end;
-  Pano.Canvas.Pen.Color:=$000000;
+  if draw then  Pano.Canvas.Pen.Color:=$000000;
 end;
 
 procedure TForm1.Step3Click(Sender: TObject);
@@ -191,7 +192,7 @@ begin
            end;
         end;
 
-  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   SCount:=SCount+1;
   StepCount.Caption:=inttostr(SCount);
 end;
@@ -250,6 +251,7 @@ begin
           ME.Value:=round(Pano.Width/30);
           NE.Value:=round(Pano.Height/30);
           redimension;
+        draw:=true;
         Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
         for i:=0 to 101 do begin
            for j:=0 to 101 do begin
@@ -277,7 +279,7 @@ var i,j,M,N,k,l,v,s:integer;
 begin
 //Memo1.Text:='';
   M:=ME.Value; N:=NE.Value;
-  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   count:=0; countmov:=0;
          for i:=0 to 101 do begin
            for j:=0 to 101 do begin
@@ -294,7 +296,7 @@ begin
   for i:=1 to M do begin
     for j:=1 to N do begin
       if points[i,j] then begin
-       Pano.Canvas.Brush.Color:=$FF0000;
+       if draw then  Pano.Canvas.Brush.Color:=$FF0000;
        p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
@@ -304,7 +306,7 @@ begin
        u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
        u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
        pz[1]:=q;pz[2]:=t;pz[3]:=u;
-       Pano.Canvas.Polygon(pz);
+       if draw then  Pano.Canvas.Polygon(pz);
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
        count:=count+1;
        d:=dirs[i,j];
@@ -312,7 +314,7 @@ begin
 
         if ((adirs[i,j,1]=0) and (adirs[i,j,2]=0)) and xpoints[i,j] then begin
 
-           Pano.Canvas.Brush.Color:=$FF0000;
+           if draw then  Pano.Canvas.Brush.Color:=$FF0000;
 //          GraphUtil.DrawArrow(Pano.Canvas,p,q);
             Pano.Canvas.Polygon(pz);
           continue;
@@ -321,14 +323,14 @@ begin
         else if not xpoints[i,j] then begin
           if not(( adirs[i,j,1]=0) and ( adirs[i,j,2]=0)) then begin
 
-                 Pano.Canvas.Brush.Color:=$0000FF;
+                 if draw then  Pano.Canvas.Brush.Color:=$0000FF;
                  countmov:=countmov+1;
           end
           else begin
-             Pano.Canvas.Brush.Color:=$FF0000;
+             if draw then  Pano.Canvas.Brush.Color:=$FF0000;
           end;
 //          GraphUtil.DrawArrow(Pano.Canvas,p,q);
-            Pano.Canvas.Polygon(pz);
+            if draw then  Pano.Canvas.Polygon(pz);
           continue;
         end
 
@@ -389,17 +391,17 @@ begin
        end;
 
        if (adirs[i,j,1]=0) and (adirs[i,j,2]=0) then begin
-          Pano.Canvas.Brush.Color:=$FF0000;
+          if draw then  Pano.Canvas.Brush.Color:=$FF0000;
 //                 GraphUtil.DrawArrow(Pano.Canvas,p,q);
-          Pano.Canvas.Polygon(pz);
+          if draw then  Pano.Canvas.Polygon(pz);
           continue;
 
        end;
        adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
        countmov:=countmov+1;
-       Pano.Canvas.Brush.Color:=$0000FF;
+       if draw then  Pano.Canvas.Brush.Color:=$0000FF;
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
-       Pano.Canvas.Polygon(pz);
+       if draw then  Pano.Canvas.Polygon(pz);
 
         end;
       end;
@@ -413,11 +415,11 @@ begin
                        countmov:=countmov+1;
      end;
   end;
-  Pano.Canvas.Pen.Color:=$000000;
-  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
-  LEnergy.Caption:=inttostr(countmov);
-  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
-  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
+  if draw then  Pano.Canvas.Pen.Color:=$000000;
+  if draw then  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
+  if draw then  LEnergy.Caption:=inttostr(countmov);
+  if draw then  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
+  if draw then  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
 end;
 
 procedure TForm1.RandClick(Sender: TObject);
@@ -451,13 +453,18 @@ begin
 end;
 
 procedure TForm1.BSkip100Click(Sender: TObject);
-var i,j:integer;
+var o:integer;
 begin
-     for i:=1 to 100 do begin
+     draw:=false;
+     for o:=1 to strtoint(ESkip.Text)-1 do begin
               Step1Click(Form1);
               Step2Click(Form1);
               Step3Click(Form1);
        end;
+     draw:=true;
+                   Step1Click(Form1);
+              Step2Click(Form1);
+              Step3Click(Form1);
 
 end;
 
