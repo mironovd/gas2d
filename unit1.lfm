@@ -1,39 +1,39 @@
 object Form1: TForm1
-  Left = 181
-  Height = 904
-  Top = 142
-  Width = 1687
+  Left = 276
+  Height = 757
+  Top = 106
+  Width = 1241
   Anchors = [akLeft]
   Caption = 'Form1'
-  ClientHeight = 904
-  ClientWidth = 1687
+  ClientHeight = 757
+  ClientWidth = 1241
   Color = 13421772
   OnCreate = FormCreate
   OnResize = FormResize
   UseDockManager = True
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.0.12.0'
   object Label1: TLabel
-    Left = 32
+    Left = 9
     Height = 17
-    Top = 820
+    Top = 674
     Width = 11
     Anchors = [akLeft, akBottom]
     Caption = 'N'
     ParentColor = False
   end
   object Label2: TLabel
-    Left = 31
+    Left = 8
     Height = 17
-    Top = 850
+    Top = 704
     Width = 12
     Anchors = [akLeft, akBottom]
     Caption = 'M'
     ParentColor = False
   end
   object NE: TSpinEdit
-    Left = 56
+    Left = 33
     Height = 16
-    Top = 821
+    Top = 675
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
@@ -43,9 +43,9 @@ object Form1: TForm1
     Value = 40
   end
   object ME: TSpinEdit
-    Left = 56
+    Left = 33
     Height = 16
-    Top = 851
+    Top = 705
     Width = 73
     Anchors = [akLeft, akBottom]
     MinValue = 2
@@ -55,10 +55,11 @@ object Form1: TForm1
     Value = 30
   end
   object Pano: TImage
-    Left = -1
-    Height = 812
+    Cursor = crArrow
+    Left = 0
+    Height = 665
     Top = 0
-    Width = 1688
+    Width = 1242
     Anchors = [akTop, akLeft, akRight, akBottom]
     AutoSize = True
     OnClick = PanoClick
@@ -67,9 +68,9 @@ object Form1: TForm1
   end
   object Step1: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 408
+    Left = 352
     Height = 30
-    Top = 820
+    Top = 692
     Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step1'
@@ -78,9 +79,9 @@ object Form1: TForm1
   end
   object Step2: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 457
+    Left = 400
     Height = 30
-    Top = 820
+    Top = 692
     Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step2'
@@ -89,9 +90,9 @@ object Form1: TForm1
   end
   object Step3: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 506
+    Left = 448
     Height = 30
-    Top = 820
+    Top = 692
     Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Step3'
@@ -100,9 +101,9 @@ object Form1: TForm1
   end
   object Label3: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 160
+    Left = 120
     Height = 17
-    Top = 820
+    Top = 674
     Width = 48
     Anchors = [akLeft, akBottom]
     Caption = 'Density'
@@ -110,9 +111,9 @@ object Form1: TForm1
   end
   object LDensity: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 265
+    Left = 208
     Height = 17
-    Top = 820
+    Top = 674
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -120,9 +121,9 @@ object Form1: TForm1
   end
   object Label5: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 160
+    Left = 120
     Height = 17
-    Top = 839
+    Top = 693
     Width = 44
     Anchors = [akLeft, akBottom]
     Caption = 'Energy'
@@ -130,9 +131,9 @@ object Form1: TForm1
   end
   object LEnergy: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 265
+    Left = 208
     Height = 17
-    Top = 839
+    Top = 693
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -140,9 +141,9 @@ object Form1: TForm1
   end
   object Label7: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 160
+    Left = 120
     Height = 17
-    Top = 858
+    Top = 712
     Width = 82
     Anchors = [akLeft, akBottom]
     Caption = 'Temperature'
@@ -150,9 +151,9 @@ object Form1: TForm1
   end
   object LTemp: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 265
+    Left = 208
     Height = 17
-    Top = 858
+    Top = 712
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
@@ -160,9 +161,9 @@ object Form1: TForm1
   end
   object Rand: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 640
+    Left = 584
     Height = 28
-    Top = 821
+    Top = 676
     Width = 83
     Anchors = [akLeft, akBottom]
     Caption = 'Random'
@@ -171,9 +172,9 @@ object Form1: TForm1
   end
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 640
+    Left = 584
     Height = 22
-    Top = 856
+    Top = 711
     Width = 81
     Anchors = [akLeft, akBottom]
     TabOrder = 6
@@ -181,9 +182,9 @@ object Form1: TForm1
   end
   object Label4: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 160
+    Left = 120
     Height = 17
-    Top = 879
+    Top = 733
     Width = 55
     Anchors = [akLeft, akBottom]
     Caption = 'Pressure'
@@ -191,18 +192,18 @@ object Form1: TForm1
   end
   object LPressure: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 265
+    Left = 208
     Height = 17
-    Top = 879
+    Top = 733
     Width = 26
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
   end
   object BFwd: TButton
-    Left = 555
-    Height = 29
-    Top = 820
+    Left = 499
+    Height = 30
+    Top = 692
     Width = 32
     Anchors = [akLeft, akBottom]
     Caption = '►'
@@ -212,7 +213,7 @@ object Form1: TForm1
   object BStop: TButton
     Left = 593
     Height = 30
-    Top = 820
+    Top = 692
     Width = 32
     Anchors = [akLeft, akBottom]
     Caption = '▩'
@@ -220,9 +221,9 @@ object Form1: TForm1
     TabOrder = 8
   end
   object CFast: TCheckBox
-    Left = 56
+    Left = 33
     Height = 18
-    Top = 873
+    Top = 727
     Width = 46
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
@@ -230,28 +231,31 @@ object Form1: TForm1
     TabOrder = 9
   end
   object Clear: TButton
-    Left = 408
-    Height = 28
-    Top = 856
-    Width = 45
+    Left = 352
+    Height = 26
+    Top = 725
+    Width = 94
+    Anchors = [akLeft, akBottom]
     Caption = 'Clear'
     OnClick = ClearClick
     TabOrder = 10
   end
   object Ckecker: TButton
-    Left = 457
-    Height = 28
-    Top = 856
-    Width = 94
+    Left = 450
+    Height = 26
+    Top = 725
+    Width = 117
+    Anchors = [akLeft, akBottom]
     Caption = 'CkeckerBoard'
     OnClick = CkeckerClick
     TabOrder = 11
   end
   object UpPr: TFloatSpinEdit
-    Left = 808
+    Left = 752
     Height = 16
-    Top = 821
+    Top = 680
     Width = 66
+    Anchors = [akLeft, akBottom]
     Increment = 0.05
     MaxValue = 0.4
     MinValue = 0
@@ -260,10 +264,11 @@ object Form1: TForm1
     Value = 0.2
   end
   object LeftPr: TFloatSpinEdit
-    Left = 736
+    Left = 680
     Height = 16
-    Top = 845
+    Top = 704
     Width = 66
+    Anchors = [akLeft, akBottom]
     Increment = 0.05
     MaxValue = 0.4
     MinValue = 0
@@ -272,10 +277,11 @@ object Form1: TForm1
     Value = 0.2
   end
   object RightPr: TFloatSpinEdit
-    Left = 880
+    Left = 824
     Height = 16
-    Top = 845
+    Top = 704
     Width = 66
+    Anchors = [akLeft, akBottom]
     Increment = 0.05
     MaxValue = 0.4
     MinValue = 0
@@ -284,10 +290,11 @@ object Form1: TForm1
     Value = 0.2
   end
   object DownPr: TFloatSpinEdit
-    Left = 808
+    Left = 752
     Height = 16
-    Top = 869
+    Top = 728
     Width = 66
+    Anchors = [akLeft, akBottom]
     Increment = 0.05
     MaxValue = 0.4
     MinValue = 0
@@ -296,10 +303,11 @@ object Form1: TForm1
     Value = 0.2
   end
   object CenterPr: TEdit
-    Left = 804
+    Left = 748
     Height = 22
-    Top = 842
+    Top = 701
     Width = 66
+    Anchors = [akLeft, akBottom]
     OnChange = CenterPrChange
     TabOrder = 16
     Text = '0.2'
@@ -312,12 +320,29 @@ object Form1: TForm1
     Caption = 'Skip100'
     OnClick = BSkip100Click
     TabOrder = 17
+  object Label6: TLabel
+    Left = 352
+    Height = 17
+    Top = 674
+    Width = 83
+    Anchors = [akLeft, akBottom]
+    Caption = 'Step Number'
+    ParentColor = False
+  end
+  object StepCount: TLabel
+    Left = 448
+    Height = 17
+    Top = 674
+    Width = 9
+    Anchors = [akLeft, akBottom]
+    Caption = '0'
+    ParentColor = False
   end
   object Timer: TTimer
     Enabled = False
     Interval = 125
     OnTimer = TimerTimer
-    left = 400
-    top = 680
+    left = 80
+    top = 120
   end
 end

@@ -21,6 +21,8 @@ type
     Ckecker: TButton;
     CFast: TCheckBox;
     CenterPr: TEdit;
+    Label6: TLabel;
+    StepCount: TLabel;
     UpPr: TFloatSpinEdit;
     LeftPr: TFloatSpinEdit;
     RightPr: TFloatSpinEdit;
@@ -90,6 +92,7 @@ var
   probs: array [-1..1] of array [-1..1] of real;
   sumprobs:array [-1..1] of array [-1..1] of real;
   state: integer;
+  SCount: integer;
 
 implementation
 
@@ -189,6 +192,8 @@ begin
         end;
 
   Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  SCount:=SCount+1;
+  StepCount.Caption:=inttostr(SCount);
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
@@ -241,6 +246,7 @@ procedure TForm1.FormCreate(Sender: TObject);
 var i,j:integer;
 begin
 //        Pano.Height:=Form1.Height-200;
+          Pano.Picture.Bitmap.SetSize(2960,1980);
           ME.Value:=round(Pano.Width/30);
           NE.Value:=round(Pano.Height/30);
           redimension;
@@ -255,6 +261,8 @@ begin
 //        probs[1,0]:=0.2; probs[0,1]:=0.2; probs[-1,0]:=0.2; probs[0,-1]:=0.2;
 //        probs[0,0]:=0.2;
         reprob;
+        SCount:=0;
+        StepCount.Caption:=inttostr(SCount);
 
 end;
 
@@ -406,10 +414,10 @@ begin
      end;
   end;
   Pano.Canvas.Pen.Color:=$000000;
-  LDensity.Caption:=floattostr(count/(N*M));
+  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
   LEnergy.Caption:=inttostr(countmov);
-  LTemp.Caption:=floattostr(countmov/count);
-  LPressure.Caption:=floattostr(countmov/(N*M));
+  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
+  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
 end;
 
 procedure TForm1.RandClick(Sender: TObject);
@@ -422,6 +430,13 @@ begin
        end;
      end;
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     SCount:=0;
+    StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
+
 end;
 
 procedure TForm1.RightPrChange(Sender: TObject);
@@ -470,6 +485,13 @@ begin
        end;
     end;
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+    SCount:=0;
+    StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
+
 end;
 
 procedure TForm1.ClearClick(Sender: TObject);
@@ -481,6 +503,12 @@ begin
        end;
     end;
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+    SCount:=0;
+    StepCount.Caption:=inttostr(SCount);
+    LDensity.Caption:='';
+    LEnergy.Caption:='';
+    LTemp.Caption:='';
+    LPressure.Caption:='';
 end;
 
 procedure TForm1.DownPrChange(Sender: TObject);
@@ -502,9 +530,12 @@ end;
 
 
 procedure TForm1.FormResize(Sender: TObject);
+//var u:TRect;
 begin
 //    Pano.Height:=Form1.Height-200;
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+//    u.Top:=0;u.Left:=0;u.Bottom:=Pano.Height; u.Top:=Pano.Width;
+//    Pano.Picture.Bitmap.SetSize(Pano.Width,Pano.Height);
 end;
 
 procedure TForm1.drawgrid(SCanvas: TCanvas;N: Integer; M: Integer);
