@@ -11,21 +11,21 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnResize = FormResize
   UseDockManager = True
-  LCLVersion = '1.0.10.0'
+  LCLVersion = '1.2.0.3'
   object Label1: TLabel
     Left = 9
-    Height = 17
-    Top = 674
-    Width = 11
+    Height = 16
+    Top = 675
+    Width = 10
     Anchors = [akLeft, akBottom]
     Caption = 'N'
     ParentColor = False
   end
   object Label2: TLabel
     Left = 8
-    Height = 17
-    Top = 704
-    Width = 12
+    Height = 16
+    Top = 705
+    Width = 11
     Anchors = [akLeft, akBottom]
     Caption = 'M'
     ParentColor = False
@@ -102,9 +102,9 @@ object Form1: TForm1
   object Label3: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 120
-    Height = 17
-    Top = 674
-    Width = 48
+    Height = 16
+    Top = 675
+    Width = 47
     Anchors = [akLeft, akBottom]
     Caption = 'Density'
     ParentColor = False
@@ -112,9 +112,9 @@ object Form1: TForm1
   object LDensity: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 208
-    Height = 17
-    Top = 674
-    Width = 26
+    Height = 16
+    Top = 675
+    Width = 25
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
@@ -122,9 +122,9 @@ object Form1: TForm1
   object Label5: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 120
-    Height = 17
-    Top = 693
-    Width = 44
+    Height = 16
+    Top = 694
+    Width = 43
     Anchors = [akLeft, akBottom]
     Caption = 'Energy'
     ParentColor = False
@@ -132,9 +132,9 @@ object Form1: TForm1
   object LEnergy: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 208
-    Height = 17
-    Top = 693
-    Width = 26
+    Height = 16
+    Top = 694
+    Width = 25
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
@@ -142,9 +142,9 @@ object Form1: TForm1
   object Label7: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 120
-    Height = 17
-    Top = 712
-    Width = 82
+    Height = 16
+    Top = 713
+    Width = 81
     Anchors = [akLeft, akBottom]
     Caption = 'Temperature'
     ParentColor = False
@@ -152,9 +152,9 @@ object Form1: TForm1
   object LTemp: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 208
-    Height = 17
-    Top = 712
-    Width = 26
+    Height = 16
+    Top = 713
+    Width = 25
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
@@ -183,9 +183,9 @@ object Form1: TForm1
   object Label4: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 120
-    Height = 17
-    Top = 733
-    Width = 55
+    Height = 16
+    Top = 734
+    Width = 54
     Anchors = [akLeft, akBottom]
     Caption = 'Pressure'
     ParentColor = False
@@ -193,9 +193,9 @@ object Form1: TForm1
   object LPressure: TLabel
     AnchorSideBottom.Side = asrBottom
     Left = 208
-    Height = 17
-    Top = 733
-    Width = 26
+    Height = 16
+    Top = 734
+    Width = 25
     Anchors = [akLeft, akBottom]
     Caption = 'N/A'
     ParentColor = False
@@ -224,7 +224,7 @@ object Form1: TForm1
     Left = 33
     Height = 18
     Top = 727
-    Width = 46
+    Width = 45
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
     OnChange = CFastChange
@@ -323,18 +323,18 @@ object Form1: TForm1
   end
   object Label6: TLabel
     Left = 352
-    Height = 17
-    Top = 674
-    Width = 83
+    Height = 16
+    Top = 675
+    Width = 82
     Anchors = [akLeft, akBottom]
     Caption = 'Step Number'
     ParentColor = False
   end
   object StepCount: TLabel
     Left = 448
-    Height = 17
-    Top = 674
-    Width = 9
+    Height = 16
+    Top = 675
+    Width = 8
     Anchors = [akLeft, akBottom]
     Caption = '0'
     ParentColor = False
@@ -346,6 +346,58 @@ object Form1: TForm1
     Width = 41
     TabOrder = 18
     Text = '100'
+  end
+  object LeftDnPr: TFloatSpinEdit
+    Left = 680
+    Height = 16
+    Top = 729
+    Width = 66
+    Anchors = [akLeft, akBottom]
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = LeftPrChange
+    TabOrder = 19
+    Value = 0
+  end
+  object LeftUpPr: TFloatSpinEdit
+    Left = 680
+    Height = 16
+    Top = 680
+    Width = 66
+    Anchors = [akLeft, akBottom]
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = LeftPrChange
+    TabOrder = 20
+    Value = 0
+  end
+  object RightUpPr: TFloatSpinEdit
+    Left = 824
+    Height = 16
+    Top = 680
+    Width = 66
+    Anchors = [akLeft, akBottom]
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = LeftPrChange
+    TabOrder = 21
+    Value = 0
+  end
+  object RightDnPr: TFloatSpinEdit
+    Left = 824
+    Height = 16
+    Top = 729
+    Width = 66
+    Anchors = [akLeft, akBottom]
+    Increment = 0.05
+    MaxValue = 0.4
+    MinValue = 0
+    OnChange = LeftPrChange
+    TabOrder = 22
+    Value = 0
   end
   object Timer: TTimer
     Enabled = False

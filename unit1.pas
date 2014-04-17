@@ -23,6 +23,10 @@ type
     CenterPr: TEdit;
     ESkip: TEdit;
     Label6: TLabel;
+    LeftDnPr: TFloatSpinEdit;
+    LeftUpPr: TFloatSpinEdit;
+    RightUpPr: TFloatSpinEdit;
+    RightDnPr: TFloatSpinEdit;
     StepCount: TLabel;
     UpPr: TFloatSpinEdit;
     LeftPr: TFloatSpinEdit;
@@ -110,6 +114,13 @@ begin
     probs[0,1]:=DownPr.Value;
     probs[0,-1]:=UpPr.Value;
 
+
+    probs[-1,1]:=LeftDnPr.Value;
+    probs[-1,-1]:=LeftUpPr.Value;
+    probs[1,1]:=RightDnPr.Value;
+    probs[1,-1]:=RightUpPr.Value;
+
+
     s:=-probs[0,0];
      for i:=-1 to 1 do begin
          for j:=-1 to 1 do begin
@@ -123,6 +134,12 @@ begin
     UpPr.MaxValue:=UpPr.Value+probs[0,0];
     DownPr.MaxValue:=DownPr.Value+probs[0,0];
     RightPr.MaxValue:=RightPr.Value+probs[0,0];
+
+    LeftUpPr.MaxValue:=LeftUpPr.Value+probs[0,0];
+    LeftDnPr.MaxValue:=LeftDnPr.Value+probs[0,0];
+    RightUpPr.MaxValue:=RightUpPr.Value+probs[0,0];
+    RightDnPr.MaxValue:=RightDnPr.Value+probs[0,0];
+
 
     s:=0;
      for i:=-1 to 1 do begin
@@ -138,6 +155,7 @@ procedure TForm1.Step1Click(Sender: TObject);
 var i,j,M,N:integer;
   p,q,r,s:TPoint;
   pz:array [1..3] of TPoint;
+  l:real;
 begin
   M:=ME.Value; N:=NE.Value;
   if draw then Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
@@ -146,14 +164,15 @@ begin
     for j:=1 to N do begin
       if points[i,j] then begin
        dirs[i,j]:=gendir();
+       l:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
        p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
-       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
-       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
-       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)/l) ;
+       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)/l) ;
+       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)/l) ;
+       r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)/l) ;
+       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)/l) ;
+       s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)/l) ;
        pz[1]:=q;pz[2]:=r;pz[3]:=s;
        if draw then Pano.Canvas.Brush.Color:=$FF0000;
        if draw then Pano.Canvas.Polygon(pz);
@@ -275,7 +294,7 @@ var i,j,M,N,k,l,v,s:integer;
   d: dir;
   vv: array [1..9] of dir;
   count,countmov:integer;
-  r: real;
+  r,ll: real;
 begin
 //Memo1.Text:='';
   M:=ME.Value; N:=NE.Value;
@@ -297,14 +316,15 @@ begin
     for j:=1 to N do begin
       if points[i,j] then begin
        if draw then  Pano.Canvas.Brush.Color:=$FF0000;
+       ll:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
        p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
-       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
-       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
-       u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)/ll) ;
+       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)/ll) ;
+       t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)/ll) ;
+       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)/ll) ;
+       u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)/ll) ;
+       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)/ll) ;
        pz[1]:=q;pz[2]:=t;pz[3]:=u;
        if draw then  Pano.Canvas.Polygon(pz);
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
