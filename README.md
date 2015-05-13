@@ -1,7 +1,7 @@
 gas2d
 =====
 
-Simulation of discrete two-dimensional gas model
+Simulation of discrete two-dimensional gas model with piston compression
 
 For details see:
 
