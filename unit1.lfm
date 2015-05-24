@@ -4,7 +4,8 @@ object Form1: TForm1
   Top = 210
   Width = 1241
   Anchors = [akLeft]
-  Caption = 'Form1'
+  AutoSize = True
+  Caption = 'Gas Model with Piston'
   ClientHeight = 757
   ClientWidth = 1241
   Color = 13421772
