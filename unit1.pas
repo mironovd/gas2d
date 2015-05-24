@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls, ComCtrls, Spin, GraphUtil, Buttons;
+  StdCtrls, ComCtrls, Spin, GraphUtil, Buttons, Math, types;
 
 type
 
@@ -23,6 +23,13 @@ type
     CenterPr: TEdit;
     ESkip: TEdit;
     Label6: TLabel;
+    Label8: TLabel;
+    PistonIdleSteps: TLabel;
+    LeftDnPr: TFloatSpinEdit;
+    LeftUpPr: TFloatSpinEdit;
+    RightDnPr: TFloatSpinEdit;
+    RightUpPr: TFloatSpinEdit;
+    Step4: TButton;
     StepCount: TLabel;
     UpPr: TFloatSpinEdit;
     LeftPr: TFloatSpinEdit;
@@ -75,6 +82,7 @@ type
     procedure reprob();
     procedure Step1Click(Sender: TObject);
     procedure Step3Click(Sender: TObject);
+    procedure Step4Click(Sender: TObject);
     procedure TimerTimer(Sender: TObject);
     procedure UpPrChange(Sender: TObject);
   private
@@ -91,6 +99,8 @@ var
   bpoints: array [0..101] of array [0..101] of boolean;
   dirs: array [0..101] of array [0..101] of dir;
   adirs: array [0..101] of array [0..101] of dir;
+  qdirs: array [0..101] of array [0..101] of dir;
+  qqdirs: array [0..101] of array [0..101] of dir;
   probs: array [-1..1] of array [-1..1] of real;
   sumprobs:array [-1..1] of array [-1..1] of real;
   state: integer;
@@ -169,14 +179,14 @@ begin
 end;
 
 procedure TForm1.Step3Click(Sender: TObject);
-var i,j,M,N:integer;
+var i,j,M,N,MM:integer;
   p,q:TPoint;
   d: dir;
 begin
-  M:=ME.Value; N:=NE.Value;
+  M:=ME.Value;MM:=min(ME.Value,pistonX); N:=NE.Value;
 
 
-  for i:=1 to M do begin
+  for i:=1 to MM do begin
     for j:=1 to N do begin
       if points[i,j] then begin
 
@@ -198,6 +208,96 @@ begin
   if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   SCount:=SCount+1;
   StepCount.Caption:=inttostr(SCount);
+end;
+
+procedure TForm1.Step4Click(Sender: TObject);
+var i,j,M,MM,N,k,l,v,s:integer;
+  p,q,t,u:TPoint;
+  pz:array [1..3] of TPoint;
+  moved: boolean;
+  jj:boolean;
+begin
+  M:=ME.Value;MM:=min(ME.Value,pistonX); N:=NE.Value;
+  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  bpoints:=points;
+  moved:=true;
+
+  for i:=1 to 101 do for j:=1 to 101 do begin qdirs[i,j,1]:=0; qdirs[i,j,2]:=0; end;
+  for i:=1 to 101 do for j:=1 to 101 do begin qqdirs[i,j,1]:=0; qqdirs[i,j,2]:=0; end;
+
+  for i:=1 to N do begin
+    if not bpoints[MM,i] then
+           continue
+    else
+        jj:=false;
+        for j:=MM downto 1 do begin
+            if not bpoints[j,i] then begin
+               jj:=true;
+               for k:=j to MM-1 do begin
+                   bpoints[k,i]:=true;
+                   bpoints[k+1,i]:=false;
+                   qdirs[k,i,1]:=-1;
+                   qqdirs[k+1,i,1]:=-1;
+               end;
+               break;
+            end
+        end;
+        if jj then continue
+        else begin
+
+             moved:=false;
+        end;
+    end;
+
+    if moved then begin
+             pistonstoppedtime:=0;
+             pistonX:=pistonX-1;
+             points:=bpoints;
+             if draw then begin
+                Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+                Pano.Canvas.Brush.Color:=$00FF00;
+                Pano.Canvas.Rectangle(round(Pano.Width*(pistonX)/M),0,round(Pano.Width*(pistonX+1)/M),Pano.Height);
+                for i:=1 to M do
+                    for j:=1 to N do
+                        if points[i,j] then begin
+                           if draw then  Pano.Canvas.Brush.Color:=$00FF00;
+                           p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
+                           p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
+                           q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qdirs[i,j,1]*round(Pano.Width/(2*M)) ;
+                           q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qdirs[i,j,2]*round(Pano.Height/(2*N)) ;
+                           t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-qdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           pz[1]:=q;pz[2]:=t;pz[3]:=u;
+                           if draw then  Pano.Canvas.Polygon(pz);
+                        end;
+             end
+    end
+    else begin
+         if draw then begin
+                Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+                Pano.Canvas.Brush.Color:=$0000FF;
+                Pano.Canvas.Rectangle(round(Pano.Width*(pistonX)/M),0,round(Pano.Width*(pistonX+1)/M),Pano.Height);
+                for i:=1 to M do
+                    for j:=1 to N do
+                        if points[i,j] then begin
+                           if draw then  Pano.Canvas.Brush.Color:=$0000FF;
+                           p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
+                           p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
+                           q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qqdirs[i,j,1]*round(Pano.Width/(2*M)) ;
+                           q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qqdirs[i,j,2]*round(Pano.Height/(2*N)) ;
+                           t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qqdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-qqdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           pz[1]:=q;pz[2]:=t;pz[3]:=u;
+                           if draw then  Pano.Canvas.Polygon(pz);
+
+             end
+         end;
+         pistonstoppedtime:=pistonstoppedtime+1;
+    end;
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
@@ -244,7 +344,7 @@ begin
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
         end;
-      pistonX:=ME.Value+1;
+      pistonX:=ME.Value-3;
       pistonstoppedtime:=0;
 end;
 
@@ -270,11 +370,11 @@ begin
         reprob;
         SCount:=0;
         StepCount.Caption:=inttostr(SCount);
-
+        PistonIdleSteps.Caption:=inttostr(pistonstoppedtime);
 end;
 
 procedure TForm1.Step2Click(Sender: TObject);
-var i,j,M,N,k,l,v,s:integer;
+var i,j,M,MM,N,k,l,v,s:integer;
   p,q,t,u:TPoint;
   pz:array [1..3] of TPoint;
   d: dir;
@@ -283,7 +383,7 @@ var i,j,M,N,k,l,v,s:integer;
   r: real;
 begin
 //Memo1.Text:='';
-  M:=ME.Value; N:=NE.Value;
+  M:=ME.Value;MM:=min(ME.Value,pistonX); N:=NE.Value;
   if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
   count:=0; countmov:=0;
          for i:=0 to 101 do begin
@@ -293,7 +393,7 @@ begin
                xpoints[i,j]:=points[i,j];
            end;
         end;
-  for i:=1 to M do begin
+  for i:=1 to MM do begin
     for j:=1 to N do begin
           adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
      end;
@@ -342,7 +442,7 @@ begin
         else begin
 //       if (adirs[i,j,1]=0) and (adirs[i,j,2]=0) then continue;
       adirs[i,j,1]:=0; adirs[i,j,2]:=0;
-       if i+d[1]>M then continue;
+       if i+d[1]>MM then continue;
        if j+d[2]>N then continue;
        if i+d[1]<=0 then continue;
        if j+d[2]<=0 then continue;
@@ -362,7 +462,7 @@ begin
        if not points[i+d[1],j+d[2]] then begin
         for k:=-1 to 1 do begin
           for l:=-1 to 1 do begin
-              if not ((i+d[1]+k>M)or (i+d[1]+k<=0)or (j+d[2]+l>N)
+              if not ((i+d[1]+k>MM)or (i+d[1]+k<=0)or (j+d[2]+l>N)
                      or (j+d[2]+l<=0)) then begin
                         if points[i+d[1]+k,j+d[2]+l] then begin
                            if (dirs[i+d[1]+k,j+d[2]+l,1]=-k) and (dirs[i+d[1]+k,j+d[2]+l,2]=-l) then begin
@@ -431,7 +531,7 @@ procedure TForm1.RandClick(Sender: TObject);
 var i,j:integer;
 begin
      redimension;
-     for i:=1 to ME.Value do begin
+     for i:=1 to Min(ME.Value,pistonX) do begin
        for j:=1 to NE.Value do begin
          points[i,j]:= random()<=strtofloat(RR.Text);
        end;
@@ -439,6 +539,7 @@ begin
      Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
      SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    PistonIdleSteps.Caption:=inttostr(pistonstoppedtime);
     LDensity.Caption:='';
     LEnergy.Caption:='';
     LTemp.Caption:='';
@@ -489,9 +590,10 @@ var t,v:boolean;
   i,j:integer;
 begin
     t:=true; v:=true;
+    redimension;
     for i:=1 to NE.Value do begin
       t:=v; v:=not v;
-       for j:=1 to ME.Value do begin
+       for j:=1 to Min(ME.Value,pistonX) do begin
            points[j,i]:=t;
            t:=not t;
        end;
@@ -499,6 +601,7 @@ begin
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    PistonIdleSteps.Caption:=inttostr(pistonstoppedtime);
     LDensity.Caption:='';
     LEnergy.Caption:='';
     LTemp.Caption:='';
@@ -514,9 +617,11 @@ begin
            points[i,j]:=false;
        end;
     end;
+    redimension;
     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
+    PistonIdleSteps.Caption:=inttostr(pistonstoppedtime);
     LDensity.Caption:='';
     LEnergy.Caption:='';
     LTemp.Caption:='';
@@ -571,6 +676,8 @@ begin
           end;
        end;
     end;
+    SCanvas.Brush.Color:=$777777;
+    SCanvas.Rectangle(round(Pano.Width*(pistonX)/M),0,round(Pano.Width*(pistonX+1)/M),Pano.Height);
 
 end;
 
