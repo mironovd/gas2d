@@ -97,6 +97,7 @@ var
   points: array [0..101] of array [0..101] of boolean;
   xpoints: array [0..101] of array [0..101] of boolean;
   bpoints: array [0..101] of array [0..101] of boolean;
+  qbpoints: array [0..101] of array [0..101] of boolean;
   dirs: array [0..101] of array [0..101] of dir;
   adirs: array [0..101] of array [0..101] of dir;
   qdirs: array [0..101] of array [0..101] of dir;
@@ -211,7 +212,7 @@ begin
 end;
 
 procedure TForm1.Step4Click(Sender: TObject);
-var i,j,M,MM,N,k,l,v,s:integer;
+var i,j,M,MM,N,k,l,v,s,sl,sr:integer;
   p,q,t,u:TPoint;
   pz:array [1..3] of TPoint;
   moved: boolean;
@@ -219,11 +220,11 @@ var i,j,M,MM,N,k,l,v,s:integer;
 begin
   M:=ME.Value;MM:=min(ME.Value,pistonX); N:=NE.Value;
   if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
-  bpoints:=points;
+  bpoints:=points; qbpoints:=points;
   moved:=true;
 
-  for i:=1 to 101 do for j:=1 to 101 do begin qdirs[i,j,1]:=0; qdirs[i,j,2]:=0; end;
-  for i:=1 to 101 do for j:=1 to 101 do begin qqdirs[i,j,1]:=0; qqdirs[i,j,2]:=0; end;
+  for i:=0 to 101 do for j:=1 to 101 do begin qdirs[i,j,1]:=0; qdirs[i,j,2]:=0; end;
+  for i:=0 to 101 do for j:=1 to 101 do begin qqdirs[i,j,1]:=0; qqdirs[i,j,2]:=0; end;
 
   for i:=1 to N do begin
     if not bpoints[MM,i] then
@@ -244,8 +245,51 @@ begin
         end;
         if jj then continue
         else begin
+             sl:=0; sr:=0;
+             if i<N then for k:=MM-1 downto 1 do if not bpoints[k,i+1] then begin
+                 sl:=k; break;
+             end ;
+             if i>1 then for k:=MM-1 downto 1 do if not bpoints[k,i-1] then begin
+                 sr:=k; break;
+             end ;
+             if (sl>0) and (sr>0) then
+               if trunc(random()*2)>=1 then sl:=0 else sr:=0 ;
 
-             moved:=false;
+             if sl>0 then begin
+                bpoints[sl,i+1]:=true; bpoints[sl,i]:=false;
+//                qdirs[sl,i+1,1]:=0;qdirs[sl,i+1,2]:=1;
+//                qqdirs[sl,i+1,1]:=0;qqdirs[sl,i+1,2]:=1;
+                for k:=sl to MM-1 do begin
+                   bpoints[k,i]:=true;
+                   bpoints[k+1,i]:=false;
+                   qdirs[k,i,1]:=-1;
+                   qqdirs[k+1,i,1]:=-1;
+               end;
+                qdirs[sl,i,1]:=0;qdirs[sl,i,2]:=1;
+                qqdirs[sl,i,1]:=0;qqdirs[sl,i,2]:=1;
+
+               continue;
+             end;
+             if sr>0 then begin
+                bpoints[sr,i-1]:=true; bpoints[sr,i]:=false;
+ //               qdirs[sr,i-1,1]:=0;qdirs[sr,i-1,2]:=1;
+ //               qqdirs[sr,i-1,1]:=0;qqdirs[sr,i-1,2]:=1;
+                for k:=sr to MM-1 do begin
+                   bpoints[k,i]:=true;
+                   bpoints[k+1,i]:=false;
+                   qdirs[k,i,1]:=-1;
+                   qqdirs[k+1,i,1]:=-1;
+               end;
+                qdirs[sr,i,1]:=0;qdirs[sr,i,2]:=-1;
+                qqdirs[sr,i,1]:=0;qqdirs[sr,i,2]:=-1;
+
+                continue;
+             end;
+
+
+
+
+             moved:=false; break;
         end;
     end;
 
@@ -275,6 +319,7 @@ begin
              end
     end
     else begin
+//       points:=bpoints;
          if draw then begin
                 Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
                 Pano.Canvas.Brush.Color:=$0000FF;
@@ -297,7 +342,10 @@ begin
              end
          end;
          pistonstoppedtime:=pistonstoppedtime+1;
+//         points:=qbpoints;
+
     end;
+    PistonIdleSteps.Caption:=inttostr(pistonstoppedtime);
 end;
 
 procedure TForm1.TimerTimer(Sender: TObject);
@@ -307,6 +355,7 @@ begin
        1: Step1Click(Form1);
        2: Step2Click(Form1);
        3: Step3Click(Form1);
+       4: Step4Click(Form1);
        else state:=0;
   end;
 end;
@@ -344,7 +393,7 @@ begin
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
         end;
-      pistonX:=ME.Value-3;
+      pistonX:=ME.Value;
       pistonstoppedtime:=0;
 end;
 
@@ -521,10 +570,10 @@ begin
      end;
   end;
   if draw then  Pano.Canvas.Pen.Color:=$000000;
-  if draw then  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
+  if draw then  LDensity.Caption:=floattostr(round(count/(N*MM)*100)/100);
   if draw then  LEnergy.Caption:=inttostr(countmov);
   if draw then  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
-  if draw then  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
+  if draw then  LPressure.Caption:=floattostr(round(countmov/(N*MM)*100)/100);
 end;
 
 procedure TForm1.RandClick(Sender: TObject);

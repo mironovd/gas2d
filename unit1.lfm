@@ -331,7 +331,7 @@ object Form1: TForm1
     ParentColor = False
   end
   object StepCount: TLabel
-    Left = 448
+    Left = 440
     Height = 16
     Top = 675
     Width = 8
