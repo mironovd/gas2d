@@ -164,9 +164,9 @@ begin
        p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
-       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
        r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
-       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
+       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
        s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
        pz[1]:=q;pz[2]:=r;pz[3]:=s;
        if draw then Pano.Canvas.Brush.Color:=$FF0000;
@@ -310,9 +310,9 @@ begin
                            q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qdirs[i,j,1]*round(Pano.Width/(2*M)) ;
                            q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qdirs[i,j,2]*round(Pano.Height/(2*N)) ;
                            t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qdirs[i,j,2]*round(Pano.Width/(2*M)) ;
-                           t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
                            u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-qdirs[i,j,2]*round(Pano.Width/(2*M)) ;
-                           u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
+                           u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qdirs[i,j,1]*round(Pano.Height/(2*N)) ;
                            pz[1]:=q;pz[2]:=t;pz[3]:=u;
                            if draw then  Pano.Canvas.Polygon(pz);
                         end;
@@ -332,9 +332,9 @@ begin
                            p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
                            q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qqdirs[i,j,1]*round(Pano.Width/(2*M)) ;
                            q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qqdirs[i,j,2]*round(Pano.Height/(2*N)) ;
-                           t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
                            t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+qqdirs[i,j,1]*round(Pano.Height/(2*N)) ;
-                           u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
+                           u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+qqdirs[i,j,2]*round(Pano.Width/(2*M)) ;
                            u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-qqdirs[i,j,1]*round(Pano.Height/(2*N)) ;
                            pz[1]:=q;pz[2]:=t;pz[3]:=u;
                            if draw then  Pano.Canvas.Polygon(pz);
@@ -456,9 +456,9 @@ begin
        q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)) ;
        q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)) ;
        t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
        u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)) ;
-       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)) ;
+       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)) ;
        pz[1]:=q;pz[2]:=t;pz[3]:=u;
        if draw then  Pano.Canvas.Polygon(pz);
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
