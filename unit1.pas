@@ -25,6 +25,8 @@ type
     Label6: TLabel;
     LeftDnPr: TFloatSpinEdit;
     LeftUpPr: TFloatSpinEdit;
+    MEL: TSpinEdit;
+    NEL: TSpinEdit;
     RightUpPr: TFloatSpinEdit;
     RightDnPr: TFloatSpinEdit;
     StepCount: TLabel;
@@ -67,7 +69,7 @@ type
     procedure Step2Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormResize(Sender: TObject);
-    procedure drawgrid(SCanvas: TCanvas; N: Integer; M: Integer);
+    procedure drawgrid(SCanvas: TCanvas; N: Integer; M: Integer; NL: Integer; ML: Integer);
     procedure MEChange(Sender: TObject);
     procedure NEChange(Sender: TObject);
     procedure PanoClick(Sender: TObject);
@@ -90,10 +92,10 @@ type
 
 var
   Form1: TForm1;
-  points: array [0..101] of array [0..101] of boolean;
-  xpoints: array [0..101] of array [0..101] of boolean;
-  dirs: array [0..101] of array [0..101] of dir;
-  adirs: array [0..101] of array [0..101] of dir;
+  points: array [-101..101] of array [-101..101] of boolean;
+  xpoints: array [-101..101] of array [-101..101] of boolean;
+  dirs: array [-101..101] of array [-101..101] of dir;
+  adirs: array [-101..101] of array [-101..101] of dir;
   probs: array [-1..1] of array [-1..1] of real;
   sumprobs:array [-1..1] of array [-1..1] of real;
   state: integer;
@@ -152,27 +154,27 @@ begin
 end;
 
 procedure TForm1.Step1Click(Sender: TObject);
-var i,j,M,N:integer;
+var i,j,M,N,ML,NL:integer;
   p,q,r,s:TPoint;
   pz:array [1..3] of TPoint;
   l:real;
 begin
-  M:=ME.Value; N:=NE.Value;
-  if draw then Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  M:=ME.Value; N:=NE.Value; NL:=NEL.Value; ML:=MEL.Value;
+  if draw then Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
   if draw then  Pano.Canvas.Pen.Color:=$FF0000;
-  for i:=1 to M do begin
-    for j:=1 to N do begin
+  for i:=ML to M do begin
+    for j:=NL to N do begin
       if points[i,j] then begin
        dirs[i,j]:=gendir();
        l:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
-       p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
-       p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
-       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)/l) ;
-       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)/l) ;
-       r.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)/l) ;
-       r.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)/l) ;
-       s.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)/l) ;
-       s.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)/l) ;
+       p.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
+       p.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
+       q.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/l) ;
+       q.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/l) ;
+       r.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
+       r.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
+       s.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
+       s.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
        pz[1]:=q;pz[2]:=r;pz[3]:=s;
        if draw then Pano.Canvas.Brush.Color:=$FF0000;
        if draw then Pano.Canvas.Polygon(pz);
@@ -185,15 +187,15 @@ begin
 end;
 
 procedure TForm1.Step3Click(Sender: TObject);
-var i,j,M,N:integer;
+var i,j,M,N,ML,NL:integer;
   p,q:TPoint;
   d: dir;
 begin
-  M:=ME.Value; N:=NE.Value;
+  M:=ME.Value; N:=NE.Value;   NL:=NEL.Value; ML:=MEL.Value;
 
 
-  for i:=1 to M do begin
-    for j:=1 to N do begin
+  for i:=ML to M do begin
+    for j:=NL to N do begin
       if points[i,j] then begin
 
        d:=adirs[i,j];
@@ -205,13 +207,13 @@ begin
       end;
     end;
   end;
-        for i:=0 to 101 do begin
-           for j:=0 to 101 do begin
+        for i:=-101 to 101 do begin
+           for j:=-101 to 101 do begin
              dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
         end;
 
-  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
   SCount:=SCount+1;
   StepCount.Caption:=inttostr(SCount);
 end;
@@ -254,8 +256,8 @@ procedure TForm1.redimension();
 var i,j:integer;
 begin
 //    SetLength(points,NE.Value+1,ME.Value+1);
-      for i:=0 to 101 do begin
-           for j:=0 to 101 do begin
+      for i:=-101 to 101 do begin
+           for j:=-101 to 101 do begin
   //            points[i,j]:=false;
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
@@ -271,9 +273,9 @@ begin
           NE.Value:=round(Pano.Height/30);
           redimension;
         draw:=true;
-        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
-        for i:=0 to 101 do begin
-           for j:=0 to 101 do begin
+        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
+        for i:=-101 to 101 do begin
+           for j:=-101 to 101 do begin
               points[i,j]:=false;
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
@@ -288,7 +290,7 @@ begin
 end;
 
 procedure TForm1.Step2Click(Sender: TObject);
-var i,j,M,N,k,l,v,s:integer;
+var i,j,M,N,ML,NL,nM,nN,nML,nNL,k,l,v,s:integer;
   p,q,t,u:TPoint;
   pz:array [1..3] of TPoint;
   d: dir;
@@ -297,34 +299,35 @@ var i,j,M,N,k,l,v,s:integer;
   r,ll: real;
 begin
 //Memo1.Text:='';
-  M:=ME.Value; N:=NE.Value;
-  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+  M:=ME.Value; N:=NE.Value;   NL:=NEL.Value; ML:=MEL.Value;
+  nN:=N;nM:=M;nML:=ML;nNL:=NL;
+  if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
   count:=0; countmov:=0;
-         for i:=0 to 101 do begin
-           for j:=0 to 101 do begin
+         for i:=-101 to 101 do begin
+           for j:=-101 to 101 do begin
              adirs[i,j,1]:=0; adirs[i,j,2]:=0;
  //            adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
                xpoints[i,j]:=points[i,j];
            end;
         end;
-  for i:=1 to M do begin
-    for j:=1 to N do begin
+  for i:=ML to M do begin
+    for j:=NL to N do begin
           adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
      end;
    end;
-  for i:=1 to M do begin
-    for j:=1 to N do begin
+  for i:=ML to M do begin
+    for j:=NL to N do begin
       if points[i,j] then begin
        if draw then  Pano.Canvas.Brush.Color:=$FF0000;
        ll:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
-       p.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M)) ;
-       p.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N)) ;
-       q.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,1]*round(Pano.Width/(2*M)/ll) ;
-       q.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,2]*round(Pano.Height/(2*N)/ll) ;
-       t.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))-dirs[i,j,2]*round(Pano.Width/(2*M)/ll) ;
-       t.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))+dirs[i,j,1]*round(Pano.Height/(2*N)/ll) ;
-       u.X:=round(Pano.Width*(i-1)/M)+round(Pano.Width/(2*M))+dirs[i,j,2]*round(Pano.Width/(2*M)/ll) ;
-       u.Y:=round(Pano.Height*(j-1)/N)+round(Pano.Height/(2*N))-dirs[i,j,1]*round(Pano.Height/(2*N)/ll) ;
+       p.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
+       p.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
+       q.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/ll) ;
+       q.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/ll) ;
+       t.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
+       t.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
+       u.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
+       u.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
        pz[1]:=q;pz[2]:=t;pz[3]:=u;
        if draw then  Pano.Canvas.Polygon(pz);
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
@@ -357,10 +360,10 @@ begin
         else begin
 //       if (adirs[i,j,1]=0) and (adirs[i,j,2]=0) then continue;
       adirs[i,j,1]:=0; adirs[i,j,2]:=0;
-       if i+d[1]>M then continue;
-       if j+d[2]>N then continue;
-       if i+d[1]<=0 then continue;
-       if j+d[2]<=0 then continue;
+       if i+d[1]>M then nM:=M+1;//continue;
+       if j+d[2]>N then nN:=N+1;//continue;
+       if i+d[1]<=0 then nML:=ML-1;//continue;
+       if j+d[2]<=0 then nNL:=NL-1;//continue;
 
        if points[i+d[1],j+d[2]] then begin
         if not ((dirs[i+d[1],j+d[2],1]=-d[1]) and (dirs[i+d[1],j+d[2],2]=-d[2])) then continue
@@ -428,15 +431,16 @@ begin
     end;
   end;
   countmov:=0;
-  for i:=1 to ME.Value do begin
-     for j:=1 to NE.Value do begin
+  for i:=ML to M do begin
+     for j:=NL to N do begin
          if points[i,j] then
                 if not ((adirs[i,j,1]=0) and (adirs[i,j,2] =0)) then
                        countmov:=countmov+1;
      end;
   end;
+  ME.Value:=nM; MEL.Value:=nML; NE.Value:=nN; NEL.Value:=nNL;
   if draw then  Pano.Canvas.Pen.Color:=$000000;
-  if draw then  LDensity.Caption:=floattostr(round(count/(N*M)*100)/100);
+  if draw then  LDensity.Caption:=floattostr(round(count/((N-NL)*(M-ML))*100)/100);
   if draw then  LEnergy.Caption:=inttostr(countmov);
   if draw then  LTemp.Caption:=floattostr(round(countmov/count*100)/100);
   if draw then  LPressure.Caption:=floattostr(round(countmov/(N*M)*100)/100);
@@ -446,12 +450,12 @@ procedure TForm1.RandClick(Sender: TObject);
 var i,j:integer;
 begin
      redimension;
-     for i:=1 to ME.Value do begin
-       for j:=1 to NE.Value do begin
+     for i:=MEL.Value to ME.Value do begin
+       for j:=NEL.Value to NE.Value do begin
          points[i,j]:= random()<=strtofloat(RR.Text);
        end;
      end;
-     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
      SCount:=0;
     StepCount.Caption:=inttostr(SCount);
     LDensity.Caption:='';
@@ -504,14 +508,14 @@ var t,v:boolean;
   i,j:integer;
 begin
     t:=true; v:=true;
-    for i:=1 to NE.Value do begin
+    for i:=NEL.Value to NE.Value do begin
       t:=v; v:=not v;
-       for j:=1 to ME.Value do begin
+       for j:=MEL.Value to ME.Value do begin
            points[j,i]:=t;
            t:=not t;
        end;
     end;
-    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
     LDensity.Caption:='';
@@ -524,12 +528,12 @@ end;
 procedure TForm1.ClearClick(Sender: TObject);
 var i,j:integer;
 begin
-    for i:=0 to 101 do begin
-       for j:=0 to 101 do begin
+    for i:=NEL.Value to 101 do begin
+       for j:=MEL.Value to 101 do begin
            points[i,j]:=false;
        end;
     end;
-    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
     SCount:=0;
     StepCount.Caption:=inttostr(SCount);
     LDensity.Caption:='';
@@ -560,29 +564,29 @@ procedure TForm1.FormResize(Sender: TObject);
 //var u:TRect;
 begin
 //    Pano.Height:=Form1.Height-200;
-    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+    Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 //    u.Top:=0;u.Left:=0;u.Bottom:=Pano.Height; u.Top:=Pano.Width;
 //    Pano.Picture.Bitmap.SetSize(Pano.Width,Pano.Height);
 end;
 
-procedure TForm1.drawgrid(SCanvas: TCanvas;N: Integer; M: Integer);
+procedure TForm1.drawgrid(SCanvas: TCanvas;N: Integer; M: Integer;NL: Integer; ML: Integer);
 var i,j:integer;
 begin
     SCanvas.Brush.Color:=$FFFFFF;
     SCanvas.FillRect(0,0,Pano.Width,Pano.Height);
     SCanvas.Brush.Color:=$000000;
     SCanvas.Pen.Color:=$000000;
-    for i:=1 to N-1 do begin
-       SCanvas.Line(0,round((Pano.Height / N)*i),Pano.Width,round((Pano.Height / N)*i));
+    for i:=1 to N-NL-1 do begin
+       SCanvas.Line(0,round((Pano.Height / (N-NL))*i),Pano.Width,round((Pano.Height / (N-NL))*i));
     end;
-    for i:=1 to M-1 do begin
-       SCanvas.Line(round((Pano.Width/M)*i),0,round((Pano.Width/M)*i),Pano.Height);
+    for i:=1 to M-ML-1 do begin
+       SCanvas.Line(round((Pano.Width/(M-ML))*i),0,round((Pano.Width/(M-ML))*i),Pano.Height);
     end;
-    for i:=1 to M do begin
-       for j:=1 to N do begin
+    for i:=1 to M-ML do begin
+       for j:=1 to N-NL do begin
           if points[i,j] then begin
-            SCanvas.Ellipse(round(Pano.Width*(i-1)/M),round(Pano.Height*(j-1)/N),
-            round(Pano.Width*(i)/M),round(Pano.Height*(j)/N));
+            SCanvas.Ellipse(round(Pano.Width*(i-ML-1)/(M-ML)),round(Pano.Height*(j-NL-1)/(N-NL)),
+            round(Pano.Width*(i)/(M-ML)),round(Pano.Height*(j)/(N-NL)));
           end;
        end;
     end;
@@ -591,27 +595,27 @@ end;
 procedure TForm1.MEChange(Sender: TObject);
 begin
      redimension;
-     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 end;
 
 procedure TForm1.NEChange(Sender: TObject);
 begin
     redimension;
-     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 end;
 
 procedure TForm1.PanoClick(Sender: TObject);
 begin
-     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
  end;
 
 procedure TForm1.PanoMouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
 begin
-       X:=trunc(ME.Value*X/Pano.Width)+1;
-       Y:=trunc(NE.Value*Y/Pano.Height)+1;
+       X:=trunc((ME.Value-MEL.Value)*X/Pano.Width)+1;
+       Y:=trunc((NE.Value-NEL.Value)*Y/Pano.Height)+1;
        points[X,Y]:=not points[X,Y];
-       Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+       Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 
 end;
 
@@ -620,7 +624,7 @@ begin
 //     Pano.Canvas.Height:=Pano.Height;
 //     Pano.Canvas.Width:=Pano.Width;
 
-     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value);
+     Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 
 end;
 

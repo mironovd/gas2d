@@ -11,7 +11,7 @@ object Form1: TForm1
   OnCreate = FormCreate
   OnResize = FormResize
   UseDockManager = True
-  LCLVersion = '1.2.0.3'
+  LCLVersion = '1.4.0.4'
   object Label1: TLabel
     Left = 9
     Height = 16
@@ -31,7 +31,7 @@ object Form1: TForm1
     ParentColor = False
   end
   object NE: TSpinEdit
-    Left = 33
+    Left = 120
     Height = 16
     Top = 675
     Width = 73
@@ -43,7 +43,7 @@ object Form1: TForm1
     Value = 40
   end
   object ME: TSpinEdit
-    Left = 33
+    Left = 120
     Height = 16
     Top = 705
     Width = 73
@@ -68,7 +68,7 @@ object Form1: TForm1
   end
   object Step1: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 352
+    Left = 472
     Height = 30
     Top = 692
     Width = 45
@@ -79,7 +79,7 @@ object Form1: TForm1
   end
   object Step2: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 400
+    Left = 520
     Height = 30
     Top = 692
     Width = 45
@@ -90,7 +90,7 @@ object Form1: TForm1
   end
   object Step3: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 448
+    Left = 568
     Height = 30
     Top = 692
     Width = 45
@@ -101,7 +101,7 @@ object Form1: TForm1
   end
   object Label3: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 120
+    Left = 240
     Height = 16
     Top = 675
     Width = 47
@@ -111,7 +111,7 @@ object Form1: TForm1
   end
   object LDensity: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 208
+    Left = 328
     Height = 16
     Top = 675
     Width = 25
@@ -121,7 +121,7 @@ object Form1: TForm1
   end
   object Label5: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 120
+    Left = 240
     Height = 16
     Top = 694
     Width = 43
@@ -131,7 +131,7 @@ object Form1: TForm1
   end
   object LEnergy: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 208
+    Left = 328
     Height = 16
     Top = 694
     Width = 25
@@ -141,7 +141,7 @@ object Form1: TForm1
   end
   object Label7: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 120
+    Left = 240
     Height = 16
     Top = 713
     Width = 81
@@ -151,7 +151,7 @@ object Form1: TForm1
   end
   object LTemp: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 208
+    Left = 328
     Height = 16
     Top = 713
     Width = 25
@@ -161,7 +161,7 @@ object Form1: TForm1
   end
   object Rand: TButton
     AnchorSideBottom.Side = asrBottom
-    Left = 584
+    Left = 704
     Height = 28
     Top = 676
     Width = 83
@@ -172,9 +172,9 @@ object Form1: TForm1
   end
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
-    Left = 584
-    Height = 22
-    Top = 711
+    Left = 704
+    Height = 21
+    Top = 712
     Width = 81
     Anchors = [akLeft, akBottom]
     TabOrder = 6
@@ -182,7 +182,7 @@ object Form1: TForm1
   end
   object Label4: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 120
+    Left = 240
     Height = 16
     Top = 734
     Width = 54
@@ -192,7 +192,7 @@ object Form1: TForm1
   end
   object LPressure: TLabel
     AnchorSideBottom.Side = asrBottom
-    Left = 208
+    Left = 328
     Height = 16
     Top = 734
     Width = 25
@@ -201,7 +201,7 @@ object Form1: TForm1
     ParentColor = False
   end
   object BFwd: TButton
-    Left = 499
+    Left = 619
     Height = 30
     Top = 692
     Width = 32
@@ -211,7 +211,7 @@ object Form1: TForm1
     TabOrder = 7
   end
   object BStop: TButton
-    Left = 536
+    Left = 656
     Height = 30
     Top = 693
     Width = 40
@@ -224,14 +224,14 @@ object Form1: TForm1
     Left = 33
     Height = 18
     Top = 727
-    Width = 45
+    Width = 46
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
     OnChange = CFastChange
     TabOrder = 9
   end
   object Clear: TButton
-    Left = 352
+    Left = 472
     Height = 26
     Top = 725
     Width = 46
@@ -241,7 +241,7 @@ object Form1: TForm1
     TabOrder = 10
   end
   object Ckecker: TButton
-    Left = 400
+    Left = 520
     Height = 26
     Top = 725
     Width = 93
@@ -251,7 +251,7 @@ object Form1: TForm1
     TabOrder = 11
   end
   object UpPr: TFloatSpinEdit
-    Left = 752
+    Left = 872
     Height = 16
     Top = 680
     Width = 66
@@ -264,7 +264,7 @@ object Form1: TForm1
     Value = 0.2
   end
   object LeftPr: TFloatSpinEdit
-    Left = 680
+    Left = 800
     Height = 16
     Top = 704
     Width = 66
@@ -277,7 +277,7 @@ object Form1: TForm1
     Value = 0.2
   end
   object RightPr: TFloatSpinEdit
-    Left = 824
+    Left = 944
     Height = 16
     Top = 704
     Width = 66
@@ -290,7 +290,7 @@ object Form1: TForm1
     Value = 0.2
   end
   object DownPr: TFloatSpinEdit
-    Left = 752
+    Left = 872
     Height = 16
     Top = 728
     Width = 66
@@ -303,9 +303,9 @@ object Form1: TForm1
     Value = 0.2
   end
   object CenterPr: TEdit
-    Left = 748
-    Height = 22
-    Top = 701
+    Left = 868
+    Height = 21
+    Top = 702
     Width = 66
     Anchors = [akLeft, akBottom]
     OnChange = CenterPrChange
@@ -313,7 +313,7 @@ object Form1: TForm1
     Text = '0.2'
   end
   object BSkip100: TButton
-    Left = 497
+    Left = 617
     Height = 25
     Top = 725
     Width = 34
@@ -322,7 +322,7 @@ object Form1: TForm1
     TabOrder = 17
   end
   object Label6: TLabel
-    Left = 352
+    Left = 472
     Height = 16
     Top = 675
     Width = 82
@@ -331,7 +331,7 @@ object Form1: TForm1
     ParentColor = False
   end
   object StepCount: TLabel
-    Left = 448
+    Left = 568
     Height = 16
     Top = 675
     Width = 8
@@ -340,15 +340,15 @@ object Form1: TForm1
     ParentColor = False
   end
   object ESkip: TEdit
-    Left = 535
-    Height = 22
+    Left = 655
+    Height = 21
     Top = 726
     Width = 41
     TabOrder = 18
     Text = '100'
   end
   object LeftDnPr: TFloatSpinEdit
-    Left = 680
+    Left = 800
     Height = 16
     Top = 729
     Width = 66
@@ -361,7 +361,7 @@ object Form1: TForm1
     Value = 0
   end
   object LeftUpPr: TFloatSpinEdit
-    Left = 680
+    Left = 800
     Height = 16
     Top = 680
     Width = 66
@@ -374,7 +374,7 @@ object Form1: TForm1
     Value = 0
   end
   object RightUpPr: TFloatSpinEdit
-    Left = 824
+    Left = 944
     Height = 16
     Top = 680
     Width = 66
@@ -387,7 +387,7 @@ object Form1: TForm1
     Value = 0
   end
   object RightDnPr: TFloatSpinEdit
-    Left = 824
+    Left = 944
     Height = 16
     Top = 729
     Width = 66
@@ -398,6 +398,30 @@ object Form1: TForm1
     OnChange = LeftPrChange
     TabOrder = 22
     Value = 0
+  end
+  object MEL: TSpinEdit
+    Left = 32
+    Height = 16
+    Top = 706
+    Width = 73
+    Anchors = [akLeft, akBottom]
+    MaxValue = 0
+    MinValue = -100
+    OnChange = MEChange
+    ParentFont = False
+    TabOrder = 23
+  end
+  object NEL: TSpinEdit
+    Left = 32
+    Height = 16
+    Top = 675
+    Width = 73
+    Anchors = [akLeft, akBottom]
+    AutoSelect = False
+    MaxValue = 2
+    MinValue = -100
+    OnChange = NEChange
+    TabOrder = 24
   end
   object Timer: TTimer
     Enabled = False
