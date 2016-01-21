@@ -13,6 +13,7 @@ uses
 {$R *.res}
 
 begin
+  Application.Title:='gas2d-expand';
   RequireDerivedFormResource := True;
   Application.Initialize;
   Application.CreateForm(TForm1, Form1);

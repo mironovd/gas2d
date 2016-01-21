@@ -154,7 +154,7 @@ begin
 end;
 
 procedure TForm1.Step1Click(Sender: TObject);
-var i,j,M,N,ML,NL:integer;
+var i,j,ip,jp,M,N,ML,NL:integer;
   p,q,r,s:TPoint;
   pz:array [1..3] of TPoint;
   l:real;
@@ -167,14 +167,15 @@ begin
       if points[i,j] then begin
        dirs[i,j]:=gendir();
        l:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
-       p.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
-       p.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
-       q.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/l) ;
-       q.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/l) ;
-       r.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
-       r.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
-       s.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
-       s.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
+       ip:=i-ML;jp:=j-NL;
+       p.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
+       p.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
+       q.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/l) ;
+       q.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/l) ;
+       r.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
+       r.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
+       s.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/l) ;
+       s.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/l) ;
        pz[1]:=q;pz[2]:=r;pz[3]:=s;
        if draw then Pano.Canvas.Brush.Color:=$FF0000;
        if draw then Pano.Canvas.Polygon(pz);
@@ -290,7 +291,7 @@ begin
 end;
 
 procedure TForm1.Step2Click(Sender: TObject);
-var i,j,M,N,ML,NL,nM,nN,nML,nNL,k,l,v,s:integer;
+var i,j,ip,jp,M,N,ML,NL,nM,nN,nML,nNL,k,l,v,s:integer;
   p,q,t,u:TPoint;
   pz:array [1..3] of TPoint;
   d: dir;
@@ -320,14 +321,15 @@ begin
       if points[i,j] then begin
        if draw then  Pano.Canvas.Brush.Color:=$FF0000;
        ll:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
-       p.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
-       p.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
-       q.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/ll) ;
-       q.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/ll) ;
-       t.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
-       t.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
-       u.X:=round(Pano.Width*(i-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
-       u.Y:=round(Pano.Height*(j-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
+       ip:=i-ML; jp:=j-NL;
+       p.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
+       p.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
+       q.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,1]*round(Pano.Width/(2*(M-ML))/ll) ;
+       q.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,2]*round(Pano.Height/(2*(N-NL))/ll) ;
+       t.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))-dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
+       t.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))+dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
+       u.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML)))+dirs[i,j,2]*round(Pano.Width/(2*(M-ML))/ll) ;
+       u.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL)))-dirs[i,j,1]*round(Pano.Height/(2*(N-NL))/ll) ;
        pz[1]:=q;pz[2]:=t;pz[3]:=u;
        if draw then  Pano.Canvas.Polygon(pz);
 //       GraphUtil.DrawArrow(Pano.Canvas,p,q);
@@ -362,8 +364,8 @@ begin
       adirs[i,j,1]:=0; adirs[i,j,2]:=0;
        if i+d[1]>M then nM:=M+1;//continue;
        if j+d[2]>N then nN:=N+1;//continue;
-       if i+d[1]<=0 then nML:=ML-1;//continue;
-       if j+d[2]<=0 then nNL:=NL-1;//continue;
+       if i+d[1]<=ML then nML:=ML-1;//continue;
+       if j+d[2]<=NL then nNL:=NL-1;//continue;
 
        if points[i+d[1],j+d[2]] then begin
         if not ((dirs[i+d[1],j+d[2],1]=-d[1]) and (dirs[i+d[1],j+d[2],2]=-d[2])) then continue
@@ -585,7 +587,7 @@ begin
     end;
     for i:=0 to M-ML do begin
        for j:=0 to N-NL do begin
-          if points[i-ML,j-NL] then begin
+          if points[i+ML,j+NL] then begin
             SCanvas.Ellipse(round(Pano.Width*(i-1)/(M-ML)),round(Pano.Height*(j-1)/(N-NL)),
             round(Pano.Width*(i)/(M-ML)),round(Pano.Height*(j)/(N-NL)));
           end;
@@ -615,7 +617,7 @@ procedure TForm1.PanoMouseDown(Sender: TObject; Button: TMouseButton;
 begin
        X:=trunc((ME.Value-MEL.Value)*X/Pano.Width)+1;
        Y:=trunc((NE.Value-NEL.Value)*Y/Pano.Height)+1;
-       points[X,Y]:=not points[X,Y];
+       points[X+MEL.Value,Y+NEL.Value]:=not points[X+MEL.Value,Y+NEL.Value];
        Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
 
 end;

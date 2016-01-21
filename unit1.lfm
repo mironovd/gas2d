@@ -173,8 +173,8 @@ object Form1: TForm1
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
     Left = 704
-    Height = 21
-    Top = 712
+    Height = 22
+    Top = 711
     Width = 81
     Anchors = [akLeft, akBottom]
     TabOrder = 6
@@ -224,7 +224,7 @@ object Form1: TForm1
     Left = 33
     Height = 18
     Top = 727
-    Width = 46
+    Width = 47
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
     OnChange = CFastChange
@@ -304,8 +304,8 @@ object Form1: TForm1
   end
   object CenterPr: TEdit
     Left = 868
-    Height = 21
-    Top = 702
+    Height = 22
+    Top = 701
     Width = 66
     Anchors = [akLeft, akBottom]
     OnChange = CenterPrChange
@@ -341,7 +341,7 @@ object Form1: TForm1
   end
   object ESkip: TEdit
     Left = 655
-    Height = 21
+    Height = 22
     Top = 726
     Width = 41
     TabOrder = 18
@@ -418,7 +418,7 @@ object Form1: TForm1
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
-    MaxValue = 2
+    MaxValue = 0
     MinValue = -100
     OnChange = NEChange
     TabOrder = 24
