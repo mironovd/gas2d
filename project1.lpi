@@ -81,7 +81,7 @@
     </Linking>
     <Other>
       <ExecuteAfter>
-        <Command Value="zip -r0 gas2d.zip gas2d.app"/>
+        <Command Value="zip -9r gas2d.zip gas2d.app"/>
       </ExecuteAfter>
     </Other>
   </CompilerOptions>
