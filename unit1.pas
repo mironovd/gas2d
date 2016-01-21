@@ -508,6 +508,7 @@ var t,v:boolean;
   i,j:integer;
 begin
     t:=true; v:=true;
+    StepCount.Caption:=inttostr(NEL.Value+1);
     for i:=NEL.Value to NE.Value do begin
       t:=v; v:=not v;
        for j:=MEL.Value to ME.Value do begin
@@ -528,8 +529,8 @@ end;
 procedure TForm1.ClearClick(Sender: TObject);
 var i,j:integer;
 begin
-    for i:=NEL.Value to 101 do begin
-       for j:=MEL.Value to 101 do begin
+    for i:=-101 to 101 do begin
+       for j:=-101 to 101 do begin
            points[i,j]:=false;
        end;
     end;
@@ -576,16 +577,16 @@ begin
     SCanvas.FillRect(0,0,Pano.Width,Pano.Height);
     SCanvas.Brush.Color:=$000000;
     SCanvas.Pen.Color:=$000000;
-    for i:=1 to N-NL-1 do begin
+    for i:=0 to N-NL-1 do begin
        SCanvas.Line(0,round((Pano.Height / (N-NL))*i),Pano.Width,round((Pano.Height / (N-NL))*i));
     end;
-    for i:=1 to M-ML-1 do begin
+    for i:=0 to M-ML-1 do begin
        SCanvas.Line(round((Pano.Width/(M-ML))*i),0,round((Pano.Width/(M-ML))*i),Pano.Height);
     end;
-    for i:=1 to M-ML do begin
-       for j:=1 to N-NL do begin
-          if points[i,j] then begin
-            SCanvas.Ellipse(round(Pano.Width*(i-ML-1)/(M-ML)),round(Pano.Height*(j-NL-1)/(N-NL)),
+    for i:=0 to M-ML do begin
+       for j:=0 to N-NL do begin
+          if points[i-ML,j-NL] then begin
+            SCanvas.Ellipse(round(Pano.Width*(i-1)/(M-ML)),round(Pano.Height*(j-1)/(N-NL)),
             round(Pano.Width*(i)/(M-ML)),round(Pano.Height*(j)/(N-NL)));
           end;
        end;
