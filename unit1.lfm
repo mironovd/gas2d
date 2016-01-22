@@ -32,11 +32,12 @@ object Form1: TForm1
   end
   object NE: TSpinEdit
     Left = 120
-    Height = 16
-    Top = 675
+    Height = 15
+    Top = 676
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
+    MaxValue = 1000
     MinValue = 2
     OnChange = NEChange
     TabOrder = 0
@@ -44,10 +45,11 @@ object Form1: TForm1
   end
   object ME: TSpinEdit
     Left = 120
-    Height = 16
-    Top = 705
+    Height = 15
+    Top = 706
     Width = 73
     Anchors = [akLeft, akBottom]
+    MaxValue = 1000
     MinValue = 2
     OnChange = MEChange
     ParentFont = False
@@ -173,8 +175,8 @@ object Form1: TForm1
   object RR: TEdit
     AnchorSideBottom.Side = asrBottom
     Left = 704
-    Height = 22
-    Top = 711
+    Height = 21
+    Top = 712
     Width = 81
     Anchors = [akLeft, akBottom]
     TabOrder = 6
@@ -224,7 +226,7 @@ object Form1: TForm1
     Left = 33
     Height = 18
     Top = 727
-    Width = 47
+    Width = 46
     Anchors = [akLeft, akBottom]
     Caption = 'Fast'
     OnChange = CFastChange
@@ -252,8 +254,8 @@ object Form1: TForm1
   end
   object UpPr: TFloatSpinEdit
     Left = 872
-    Height = 16
-    Top = 680
+    Height = 15
+    Top = 681
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -265,8 +267,8 @@ object Form1: TForm1
   end
   object LeftPr: TFloatSpinEdit
     Left = 800
-    Height = 16
-    Top = 704
+    Height = 15
+    Top = 705
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -278,8 +280,8 @@ object Form1: TForm1
   end
   object RightPr: TFloatSpinEdit
     Left = 944
-    Height = 16
-    Top = 704
+    Height = 15
+    Top = 705
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -291,8 +293,8 @@ object Form1: TForm1
   end
   object DownPr: TFloatSpinEdit
     Left = 872
-    Height = 16
-    Top = 728
+    Height = 15
+    Top = 729
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -304,8 +306,8 @@ object Form1: TForm1
   end
   object CenterPr: TEdit
     Left = 868
-    Height = 22
-    Top = 701
+    Height = 21
+    Top = 702
     Width = 66
     Anchors = [akLeft, akBottom]
     OnChange = CenterPrChange
@@ -341,7 +343,7 @@ object Form1: TForm1
   end
   object ESkip: TEdit
     Left = 655
-    Height = 22
+    Height = 21
     Top = 726
     Width = 41
     TabOrder = 18
@@ -349,8 +351,8 @@ object Form1: TForm1
   end
   object LeftDnPr: TFloatSpinEdit
     Left = 800
-    Height = 16
-    Top = 729
+    Height = 15
+    Top = 730
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -362,8 +364,8 @@ object Form1: TForm1
   end
   object LeftUpPr: TFloatSpinEdit
     Left = 800
-    Height = 16
-    Top = 680
+    Height = 15
+    Top = 681
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -375,8 +377,8 @@ object Form1: TForm1
   end
   object RightUpPr: TFloatSpinEdit
     Left = 944
-    Height = 16
-    Top = 680
+    Height = 15
+    Top = 681
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -388,8 +390,8 @@ object Form1: TForm1
   end
   object RightDnPr: TFloatSpinEdit
     Left = 944
-    Height = 16
-    Top = 729
+    Height = 15
+    Top = 730
     Width = 66
     Anchors = [akLeft, akBottom]
     Increment = 0.05
@@ -401,8 +403,8 @@ object Form1: TForm1
   end
   object MEL: TSpinEdit
     Left = 32
-    Height = 16
-    Top = 706
+    Height = 15
+    Top = 707
     Width = 73
     Anchors = [akLeft, akBottom]
     MaxValue = 0
@@ -413,13 +415,13 @@ object Form1: TForm1
   end
   object NEL: TSpinEdit
     Left = 32
-    Height = 16
-    Top = 675
+    Height = 15
+    Top = 676
     Width = 73
     Anchors = [akLeft, akBottom]
     AutoSelect = False
     MaxValue = 0
-    MinValue = -100
+    MinValue = -1000
     OnChange = NEChange
     TabOrder = 24
   end

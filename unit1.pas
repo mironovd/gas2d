@@ -92,10 +92,10 @@ type
 
 var
   Form1: TForm1;
-  points: array [-101..101] of array [-101..101] of boolean;
-  xpoints: array [-101..101] of array [-101..101] of boolean;
-  dirs: array [-101..101] of array [-101..101] of dir;
-  adirs: array [-101..101] of array [-101..101] of dir;
+  points: array [-1001..1001] of array [-1001..1001] of boolean;
+  xpoints: array [-1001..1001] of array [-1001..1001] of boolean;
+  dirs: array [-1001..1001] of array [-1001..1001] of dir;
+  adirs: array [-1001..1001] of array [-1001..1001] of dir;
   probs: array [-1..1] of array [-1..1] of real;
   sumprobs:array [-1..1] of array [-1..1] of real;
   state: integer;
@@ -208,8 +208,8 @@ begin
       end;
     end;
   end;
-        for i:=-101 to 101 do begin
-           for j:=-101 to 101 do begin
+        for i:=-1001 to 1001 do begin
+           for j:=-1001 to 1001 do begin
              dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
         end;
@@ -257,8 +257,8 @@ procedure TForm1.redimension();
 var i,j:integer;
 begin
 //    SetLength(points,NE.Value+1,ME.Value+1);
-      for i:=-101 to 101 do begin
-           for j:=-101 to 101 do begin
+      for i:=-1001 to 1001 do begin
+           for j:=-1001 to 1001 do begin
   //            points[i,j]:=false;
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
@@ -275,8 +275,8 @@ begin
           redimension;
         draw:=true;
         Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
-        for i:=-101 to 101 do begin
-           for j:=-101 to 101 do begin
+        for i:=-1001 to 1001 do begin
+           for j:=-1001 to 1001 do begin
               points[i,j]:=false;
               dirs[i,j,1]:=0; dirs[i,j,2]:=0;
            end;
@@ -304,8 +304,8 @@ begin
   nN:=N;nM:=M;nML:=ML;nNL:=NL;
   if draw then  Form1.drawgrid(Pano.Canvas,NE.Value,ME.Value,NEL.Value,MEL.Value);
   count:=0; countmov:=0;
-         for i:=-101 to 101 do begin
-           for j:=-101 to 101 do begin
+         for i:=-1001 to 1001 do begin
+           for j:=-1001 to 1001 do begin
              adirs[i,j,1]:=0; adirs[i,j,2]:=0;
  //            adirs[i,j,1]:=dirs[i,j,1]; adirs[i,j,2]:=dirs[i,j,2];
                xpoints[i,j]:=points[i,j];
@@ -382,8 +382,8 @@ begin
        if not points[i+d[1],j+d[2]] then begin
         for k:=-1 to 1 do begin
           for l:=-1 to 1 do begin
-              if not ((i+d[1]+k>M)or (i+d[1]+k<=0)or (j+d[2]+l>N)
-                     or (j+d[2]+l<=0)) then begin
+//              if not ((i+d[1]+k>M)or (i+d[1]+k<=0)or (j+d[2]+l>N)
+//                     or (j+d[2]+l<=0)) then begin
                         if points[i+d[1]+k,j+d[2]+l] then begin
                            if (dirs[i+d[1]+k,j+d[2]+l,1]=-k) and (dirs[i+d[1]+k,j+d[2]+l,2]=-l) then begin
                               v:=v+1;
@@ -391,7 +391,7 @@ begin
 
                            end;
                         end;
-              end;
+//              end;
           end;
         end;
        end;
@@ -531,8 +531,8 @@ end;
 procedure TForm1.ClearClick(Sender: TObject);
 var i,j:integer;
 begin
-    for i:=-101 to 101 do begin
-       for j:=-101 to 101 do begin
+    for i:=-1001 to 1001 do begin
+       for j:=-1001 to 1001 do begin
            points[i,j]:=false;
        end;
     end;
