@@ -62,6 +62,7 @@
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
+      <TargetOS Value="darwin"/>
       <Optimizations>
         <OptimizationLevel Value="3"/>
       </Optimizations>

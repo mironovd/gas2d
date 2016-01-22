@@ -166,7 +166,7 @@ begin
     for j:=NL to N do begin
       if points[i,j] then begin
        dirs[i,j]:=gendir();
-       l:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
+       l:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);  if l=0 then l:=1;
        ip:=i-ML;jp:=j-NL;
        p.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
        p.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
@@ -320,7 +320,7 @@ begin
     for j:=NL to N do begin
       if points[i,j] then begin
        if draw then  Pano.Canvas.Brush.Color:=$FF0000;
-       ll:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);
+       ll:=sqrt(dirs[i,j,1]*dirs[i,j,1]+dirs[i,j,2]*dirs[i,j,2]);  if ll=0 then ll:=1;
        ip:=i-ML; jp:=j-NL;
        p.X:=round(Pano.Width*(ip-1)/(M-ML))+round(Pano.Width/(2*(M-ML))) ;
        p.Y:=round(Pano.Height*(jp-1)/(N-NL))+round(Pano.Height/(2*(N-NL))) ;
