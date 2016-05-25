@@ -106,28 +106,6 @@ end;
 
 
 
-procedure start;
-var i,j:integer;
-begin
-          ME_Value:=2000;
-          NE_Value:=2000;
-	  MEL_Value:=0;
-	  NEL_Value:=0;
-
-
-        for i:=-2001 to 2001 do begin
-           for j:=-2001 to 2001 do begin
-              points[i,j]:=false;
-              dirs[i,j,1]:=0; dirs[i,j,2]:=0;
-           end;
-        end;
-        probs[-1,-1]:=0; probs[-1,1]:=0; probs[1,-1]:=0; probs[1,1]:=0;
-        probs[1,0]:=0; probs[0,1]:=0; probs[-1,0]:=0.5; probs[0,-1]:=0.5;
-        probs[0,0]:=0;
-	reprob;
-        SCount:=0;
-
-end;
 
 procedure Step2Click();
 var i,j,ip,jp,M,N,ML,NL,nM,nN,nML,nNL,k,l,v,s:integer;
@@ -275,7 +253,51 @@ begin
     writeln(out);
 end;
 
+procedure start;
+var i,j:integer;
 begin
+          ME_Value:=2000;
+          NE_Value:=2000;
+	  MEL_Value:=0;
+	  NEL_Value:=0;
+
+
+        for i:=-2001 to 2001 do begin
+           for j:=-2001 to 2001 do begin
+              points[i,j]:=false;
+              dirs[i,j,1]:=0; dirs[i,j,2]:=0;
+           end;
+        end;
+        probs[-1,-1]:=0; probs[-1,1]:=0; probs[1,-1]:=0; probs[1,1]:=0;
+        probs[1,0]:=0; probs[0,1]:=0; probs[-1,0]:=0.5; probs[0,-1]:=0.5;
+        probs[0,0]:=0;
+	reprob;
+        SCount:=0;
+
+end;
+
+
+procedure RandomSeed;
+var
+  f : file of integer;
+  i : integer;
+
+begin
+  i        := 0;
+  filemode := 0;
+  Assign(f, '/dev/random');
+  reset (f,1);
+  read (f,i);
+  Close (f);
+  RandSeed := i;
+end;
+
+
+
+begin
+//      Randomize;
+        RandomSeed();
+
 	Assign(out,'out/'+FloatToStr((Now - EncodeDate(1970, 1 ,1)) * 24 * 60 * 60)+'.out');
 	rewrite(out);
 	start();
