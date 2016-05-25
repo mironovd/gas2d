@@ -21,7 +21,7 @@ Dir.glob(dir+'/*').each{|ff|
 
 (0..N-1).each{|t| (0..N-1).each{|i| @ma[t][i].avg}}
 
-File.open("ma."+dir+".marshall","wb"){|o| o.puts(Marshal.dump(@ma))}
+File.open("ma."+dir+".marshall","wb"){|o| o.puts(Marshal.dump([N,@ma]))}
 
 p @ma
 
