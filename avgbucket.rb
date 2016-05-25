@@ -17,4 +17,8 @@ class AveragingBucket
    @average ||= @sum.to_f/@length
  end
  alias avg average
+
+ def to_s
+    @sum.to_s+"/"+@length.to_s+"="+@average.to_s
+ end
 end
